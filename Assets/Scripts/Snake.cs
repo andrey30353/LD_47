@@ -32,6 +32,8 @@ public class Snake : MonoBehaviour
     // куда смотрим - через координаты
     bool rightView;
 
+    float step => (float)1 / (_parts.Count - 1);
+
     void Start()
     {
         useHead = true;
@@ -43,31 +45,23 @@ public class Snake : MonoBehaviour
         tailPoint = Curve.Points[2];
         
         Length = math.GetDistance();
-        minDistance = Length * 0.5f;
-
-        //var parts = ModelContent.GetComponentsInChildren<Transform>();
-        //_parts = new List<Transform>(parts.Length);
-        //foreach (var item in parts)
-        //{
-        //    if (item != ModelContent.transform)
-        //        _parts.Add(item);
-        //}
-        print("Count = " + _parts.Count);
-
-        // print(curve.Points[0].ControlFirstLocal);
-
-        //foreach (var item in collection)
-        //{
-
-        //}
-
-        //SetPosition();
-
+        minDistance = Length * 0.5f;               
+       
+        //UpdateBones();
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            foreach (var item in _parts)
+            {
+                item.Rotate(new Vector3(0, 90, 0));
+            }
+        }
+
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -125,12 +119,15 @@ public class Snake : MonoBehaviour
         Vector3 tangAtSplineCenter;
 
         _parts[0].position = math.CalcPositionAndTangentByDistanceRatio(0f, out tangAtSplineCenter);
-        _parts[0].rotation = Quaternion.LookRotation(tangAtSplineCenter) * Quaternion.Euler(0, 90, 0);
-        for (int i = 1; i < 10; i++)
+        //Debug.Log(tangAtSplineCenter);
+        _parts[0].rotation = Quaternion.LookRotation(tangAtSplineCenter) * Quaternion.Euler(-90, -90, 0);
+        for (int i = 1; i < _parts.Count; i++)
         {
-            var posAtSplineCenter = math.CalcPositionAndTangentByDistanceRatio(i * 0.1f, out tangAtSplineCenter);
+           // print(_parts[i]);
+            var posAtSplineCenter = math.CalcPositionAndTangentByDistanceRatio(i * step, out tangAtSplineCenter);
+            //Debug.Log(tangAtSplineCenter);
             _parts[i].position = posAtSplineCenter;
-            _parts[i].rotation = Quaternion.LookRotation(tangAtSplineCenter) * Quaternion.Euler(0, 90, 0);
+            _parts[i].rotation = Quaternion.LookRotation(tangAtSplineCenter) * Quaternion.Euler(-90, -90, 0);
         }
     }
 
@@ -158,6 +155,7 @@ public class Snake : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        return;
 
         var upVector = Vector2.up;
         if (!rightView)
@@ -171,8 +169,11 @@ public class Snake : MonoBehaviour
 
         var proj = GetProjected(headPoint.PositionWorld, tailPoint.PositionWorld, middle + Vector3.up * freeLength);
 
+        var difX = headPoint.PositionWorld.x - tailPoint.PositionWorld.x;
         var difY = headPoint.PositionWorld.y - tailPoint.PositionWorld.y;
-               
+        var dd = Mathf.Sin(difX) + Mathf.Cos(difY);
+
+
         var cc = Vector3.Reflect(middle, Vector3.down);
         //Vector3 heading = target.position - transform.position;
         //Vector3 force = Vector3.Project(heading, railDirection);
@@ -180,8 +181,15 @@ public class Snake : MonoBehaviour
         //print($"Length = {Length}; currentLength = {currentLength}");
         //Gizmos.color = Color.red;
         //Gizmos.DrawSphere(middle, 0.1f);
+        //Поворот точки на угол angle:
+       // mp.x = point.x * cos(angle) — point.y* sin(angle); rotated_point.y = point.x * sin(angle) + point.y * cos(angle);
+
         Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(middle + Vector3.up * freeLength + difY * Vector3.left, 0.1f);        
+        //var mp = middle + Vector3.up * freeLength;
+        //mp.x = middle.x * Mathf.Cos(angle) — middle.y* Mathf.Sin(angle);
+        //mp.y = middle.x * sin(angle) + middle.y * cos(angle);
+        Gizmos.DrawSphere(middle + Vector3.up * freeLength, 0.1f);
+        //Gizmos.DrawSphere(middle + (Vector3.up * Mathf.Sin(difX) + Vector3.left *  Mathf.Cos(difY)) * freeLength, 0.1f);        
         
 
         /*
@@ -202,6 +210,23 @@ public class Snake : MonoBehaviour
         return prj + s;
     }
 
-   
-   
+    [ContextMenu("UpdateBonesLog")]
+    public void UpdateBonesLog()
+    {
+        //get position at the center of the spline  
+        Vector3 tangAtSplineCenter;
+
+        var posAtSplineCenter = math.CalcPositionAndTangentByDistanceRatio(0f, out tangAtSplineCenter);
+        //_parts[0].position = math.CalcPositionAndTangentByDistanceRatio(0f, out tangAtSplineCenter);
+        Debug.Log("0 = " + tangAtSplineCenter);
+        //_parts[0].rotation = Quaternion.LookRotation(tangAtSplineCenter) * Quaternion.Euler(0, 90, 0);
+        for (int i = 1; i < _parts.Count; i++)
+        {
+            posAtSplineCenter = math.CalcPositionAndTangentByDistanceRatio(i * step, out tangAtSplineCenter);
+            Debug.Log(i + " = " + tangAtSplineCenter);
+            //_parts[i].position = posAtSplineCenter;
+            //_parts[i].rotation = Quaternion.LookRotation(tangAtSplineCenter) * Quaternion.Euler(0, 90, 0);
+        }
+    }
+
 }
