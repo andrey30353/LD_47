@@ -19,21 +19,28 @@ public class Snake : MonoBehaviour
     public List<Transform> _parts;
 
     BGCurvePointI headPoint;
+    BGCurvePointI midPoint;
     BGCurvePointI tailPoint;
 
     Vector3 _input;
 
+    // чем управляем сейчас
     bool useHead;
+
+    // куда смотрим - через координаты
+    bool rightView;
 
     void Start()
     {
         useHead = true;
+        rightView = true;
 
         math = Curve.GetComponent<BGCcMath>();
         headPoint = Curve.Points[0];
-        tailPoint = Curve.Points[Curve.Points.Length - 1];
+        midPoint = Curve.Points[1];
+        tailPoint = Curve.Points[2];
         
-        //Length = (Head.position - Tail.position).magnitude;
+        Length = math.GetDistance(); 
 
         //var parts = ModelContent.GetComponentsInChildren<Transform>();
         //_parts = new List<Transform>(parts.Length);
@@ -89,11 +96,12 @@ public class Snake : MonoBehaviour
                     Head.transform.position = nextHeadPosition;
                 }       
                 */
-        SetPosition();
+        UpdateMidPoint();
 
+        UpdateBones();        
     }
 
-    private void SetPosition()
+    private void UpdateBones()
     {       
         //get position at the center of the spline  
         Vector3 tangAtSplineCenter;
@@ -108,19 +116,66 @@ public class Snake : MonoBehaviour
         }
     }
 
+    private void UpdateMidPoint()
+    {
+        var upVector = Vector3.up;
+        if (!rightView)
+            upVector = Vector3.down;
+
+        var middle = (headPoint.PositionWorld + tailPoint.PositionWorld) * 0.5f;// Vector3.Project(headPoint.PositionWorld, tailPoint.PositionWorld);
+        var normal = Vector3.Cross(headPoint.PositionWorld, tailPoint.PositionWorld);
+
+        var proj = GetProjected(headPoint.PositionWorld, tailPoint.PositionWorld, middle);
+
+        Gizmos.color = Color.red;
+        var currentLength = (headPoint.PositionWorld - tailPoint.PositionWorld).magnitude;
+        var freeLength = Mathf.Clamp(Length - currentLength, 0, Length);
+
+        midPoint.PositionWorld = middle + Vector3.up * freeLength;
+
+        // todo
+        //Debug.DrawLine(normal, normal * upVector);
+    }
+
+
     private void OnDrawGizmos()
     {
+
+        var upVector = Vector2.up;
+        if (!rightView)
+            upVector = Vector2.down;
+
+        var middle = (headPoint.PositionWorld + tailPoint.PositionWorld) * 0.5f;// Vector3.Project(headPoint.PositionWorld, tailPoint.PositionWorld);
+         var normal = Vector3.Cross(headPoint.PositionWorld, tailPoint.PositionWorld);
+
+        var proj = GetProjected(headPoint.PositionWorld, tailPoint.PositionWorld, middle);
+
+        Gizmos.color = Color.red;
+        var currentLength = (headPoint.PositionWorld - tailPoint.PositionWorld).magnitude;
+        var freeLength = Mathf.Clamp(Length - currentLength, 0, Length);
+
+        //print($"Length = {Length}; currentLength = {currentLength}");
+        Gizmos.DrawSphere(middle /*+ normal*/ + Vector3.up * freeLength, 0.2f);
+
+        //Gizmos.color = Color.blue;
+        //Gizmos.DrawSphere(proj, 0.3f);
+
+        /*
         //====Position and Tangent (World)       
         //get position and tangent at the center of the spline
-        Vector3 tangAtSplineCenter;
-     
+        Vector3 tangAtSplineCenter;    
 
         for (int i = 0; i < _parts.Count; i++)
         {
             var posAtSplineCenter = math.CalcPositionAndTangentByDistanceRatio((float)i / _parts.Count, out tangAtSplineCenter);
-            Gizmos.DrawCube(posAtSplineCenter, new Vector3(0.1f, 0.1f, 0.1f)/*0.05f*/);
-        }
+            Gizmos.DrawCube(posAtSplineCenter, new Vector3(0.1f, 0.1f, 0.1f));
+        }*/
     }
-
+    private Vector3 GetProjected(Vector3 s, Vector3 f, Vector3 c)
+    {
+        Vector3 startToFinish = f - s;
+        Vector3 prj = Vector3.Project(c - s, startToFinish);
+        return prj + s;
+    }
 
 }

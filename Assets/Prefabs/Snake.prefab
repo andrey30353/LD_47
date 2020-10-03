@@ -49,6 +49,8 @@ MonoBehaviour:
   math: {fileID: 794606345193212168}
   Head: {fileID: 0}
   Tail: {fileID: 0}
+  Speed: 3
+  Length: 6
   ModelContent: {fileID: 794606345960090482}
   _parts:
   - {fileID: 4735629615293145604}
@@ -62,8 +64,6 @@ MonoBehaviour:
   - {fileID: 1945036125673938592}
   - {fileID: 2365913152866703193}
   - {fileID: 1634746498266953199}
-  Speed: 10
-  Length: 6
 --- !u!1 &794606345193212173
 GameObject:
   m_ObjectHideFlags: 0
