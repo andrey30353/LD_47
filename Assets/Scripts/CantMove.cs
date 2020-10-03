@@ -48,6 +48,7 @@ public class CantMove : MonoBehaviour
         {
             var player = other.GetComponentInParent<Snake>();
             player.HeadIsCollided = true;
+            player.HeadCollidedWith = collider;
             print("HeadCollide - OnTriggerEnter");
         }
 
@@ -55,6 +56,7 @@ public class CantMove : MonoBehaviour
         {
             var player = other.gameObject.GetComponentInParent<Snake>();
             player.TailIsCollided = true;
+            player.TailCollidedWith = collider;
             print("TailIsCollided - OnTriggerEnter");
         }
     }
@@ -67,6 +69,7 @@ public class CantMove : MonoBehaviour
         {
             var player = other.GetComponentInParent<Snake>();
             player.HeadIsCollided = true;
+            player.HeadCollidedWith = collider;
             //print("HeadCollide - OnTriggerEnter");
         }
 
@@ -74,6 +77,7 @@ public class CantMove : MonoBehaviour
         {
             var player = other.gameObject.GetComponentInParent<Snake>();
             player.TailIsCollided = true;
+            player.TailCollidedWith = collider;
             //print("TailIsCollided - OnTriggerEnter");
         }
     }
@@ -84,6 +88,7 @@ public class CantMove : MonoBehaviour
         {
             var player = other.gameObject.GetComponentInParent<Snake>();
             player.HeadIsCollided = false;
+            player.HeadCollidedWith = null;
             print("HeadCollide - OnTriggerExit");
         }
 
@@ -91,6 +96,7 @@ public class CantMove : MonoBehaviour
         {
             var player = other.gameObject.GetComponentInParent<Snake>();
             player.TailIsCollided = false;
+            player.TailCollidedWith = null;
             print("TailCollide - OnTriggerEnter");
         }
     }

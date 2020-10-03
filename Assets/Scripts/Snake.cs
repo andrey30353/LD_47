@@ -40,7 +40,9 @@ public class Snake : MonoBehaviour
     float step => (float)1 / (_parts.Count - 1);
       
     public bool HeadIsCollided = false;
+    public BoxCollider HeadCollidedWith;
     public bool TailIsCollided = false;
+    public BoxCollider TailCollidedWith;
 
     float CurrentLength => (headPoint.PositionWorld - tailPoint.PositionWorld).magnitude;
 
@@ -91,6 +93,13 @@ public class Snake : MonoBehaviour
         {
             RevertPosition();
         }
+
+        if (HeadIsCollided)
+        {
+           var direction = (HeadCollidedWith.center - headPoint.PositionWorld).normalized;
+            headPoint.PositionWorld = headPoint.PositionWorld + direction * Speed * Time.deltaTime;
+        }
+
 
         ApplyGravity();
 
