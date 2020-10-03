@@ -30,20 +30,20 @@ public class CantMove : MonoBehaviour
         //}
     }*/
 
-    void OnCollisionEnter(Collision collision)
-    {
+    //void OnCollisionEnter(Collision collision)
+    //{
 
-    }
+    //}
 
-    void OnCollisionExit(Collision collision)
-    {
+    //void OnCollisionExit(Collision collision)
+    //{
 
-    }
+    //}
 
     private void OnTriggerEnter(Collider other)
     {
         //if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
-        print(other.name);
+        //print(other.name);
         if (other.gameObject.tag == "Head")
         {
             var player = other.GetComponentInParent<Snake>();
@@ -56,6 +56,25 @@ public class CantMove : MonoBehaviour
             var player = other.gameObject.GetComponentInParent<Snake>();
             player.TailIsCollided = true;
             print("TailIsCollided - OnTriggerEnter");
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        //if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        //print(other.name);
+        if (other.gameObject.tag == "Head")
+        {
+            var player = other.GetComponentInParent<Snake>();
+            player.HeadIsCollided = true;
+            //print("HeadCollide - OnTriggerEnter");
+        }
+
+        if (other.gameObject.tag == "Tail")
+        {
+            var player = other.gameObject.GetComponentInParent<Snake>();
+            player.TailIsCollided = true;
+            //print("TailIsCollided - OnTriggerEnter");
         }
     }
 
