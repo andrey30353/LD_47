@@ -1,17 +1,24 @@
-﻿using BansheeGz.BGSpline.Curve;
+﻿using BansheeGz.BGSpline.Components;
+using BansheeGz.BGSpline.Curve;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Snake : MonoBehaviour
 {
-    public BGCurve curve;
+    public BGCurve Curve;
+    public BGCcMath math;
+   
 
     public Transform Head;   
     public Transform Tail;
 
     public GameObject ModelContent;
-    private List<Transform> _parts;
+    public List<Transform> _parts;
+
+    public float x;
+    public float y;
+    public float z;
 
     public float Speed = 10;
     public float Length = 6;
@@ -20,24 +27,28 @@ public class Snake : MonoBehaviour
 
     void Start()
     {
-        
-        Length = (Head.position - Tail.position).magnitude;
-        var parts = ModelContent.GetComponentsInChildren<Transform>();
-        _parts = new List<Transform>(parts.Length);
-        foreach (var item in parts)
-        {
-            if (item != ModelContent.transform)
-                _parts.Add(item);
-        }
+        math = Curve.GetComponent<BGCcMath>();
+
+        //Length = (Head.position - Tail.position).magnitude;
+
+        //var parts = ModelContent.GetComponentsInChildren<Transform>();
+        //_parts = new List<Transform>(parts.Length);
+        //foreach (var item in parts)
+        //{
+        //    if (item != ModelContent.transform)
+        //        _parts.Add(item);
+        //}
         print("Count = " + _parts.Count);
 
-        print(curve.Points[0].ControlFirstLocal);
+        // print(curve.Points[0].ControlFirstLocal);
 
         //foreach (var item in collection)
         //{
 
         //}
-                
+
+        SetPosition();
+
     }
 
     // Update is called once per frame
@@ -47,6 +58,8 @@ public class Snake : MonoBehaviour
         {
             print("asdf");
         }
+
+
 
         /*
         var horizontal = Input.GetAxis("Horizontal");
@@ -62,6 +75,37 @@ public class Snake : MonoBehaviour
             Head.transform.position = nextHeadPosition;
         } 
          */
+
+       // SetPosition();
+    }
+
+    private void SetPosition()
+    {       
+        //get position at the center of the spline  
+        Vector3 tangAtSplineCenter;
+
+        _parts[0].position = math.CalcPositionAndTangentByDistanceRatio(0f, out tangAtSplineCenter);
+        _parts[0].LookAt(tangAtSplineCenter);
+        for (int i = 1; i < 10; i++)
+        {
+            var posAtSplineCenter = math.CalcPositionAndTangentByDistanceRatio(i * 0.1f, out tangAtSplineCenter);
+            _parts[i].position = posAtSplineCenter;
+            _parts[i].rotation = Quaternion.LookRotation(tangAtSplineCenter) ;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        //====Position and Tangent (World)       
+        //get position and tangent at the center of the spline
+        Vector3 tangAtSplineCenter;
+     
+
+        for (int i = 0; i < _parts.Count; i++)
+        {
+            var posAtSplineCenter = math.CalcPositionAndTangentByDistanceRatio((float)i / _parts.Count, out tangAtSplineCenter);
+            Gizmos.DrawCube(posAtSplineCenter, new Vector3(0.1f, 0.1f, 0.1f)/*0.05f*/);
+        }
     }
 
 
