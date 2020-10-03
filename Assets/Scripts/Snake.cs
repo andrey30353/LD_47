@@ -47,7 +47,7 @@ public class Snake : MonoBehaviour
 
         //}
 
-        SetPosition();
+        //SetPosition();
 
     }
 
@@ -56,7 +56,10 @@ public class Snake : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            print("asdf");
+            foreach (var item in _parts)
+            {
+                item.Rotate(new Vector3(0, 90, 0));
+            }
         }
 
 
@@ -76,7 +79,7 @@ public class Snake : MonoBehaviour
         } 
          */
 
-       // SetPosition();
+        SetPosition();
     }
 
     private void SetPosition()
@@ -85,12 +88,12 @@ public class Snake : MonoBehaviour
         Vector3 tangAtSplineCenter;
 
         _parts[0].position = math.CalcPositionAndTangentByDistanceRatio(0f, out tangAtSplineCenter);
-        _parts[0].LookAt(tangAtSplineCenter);
+        _parts[0].rotation = Quaternion.LookRotation(tangAtSplineCenter) * Quaternion.Euler(0, 90, 0);
         for (int i = 1; i < 10; i++)
         {
             var posAtSplineCenter = math.CalcPositionAndTangentByDistanceRatio(i * 0.1f, out tangAtSplineCenter);
             _parts[i].position = posAtSplineCenter;
-            _parts[i].rotation = Quaternion.LookRotation(tangAtSplineCenter) ;
+            _parts[i].rotation = Quaternion.LookRotation(tangAtSplineCenter) * Quaternion.Euler(0, 90, 0);
         }
     }
 
