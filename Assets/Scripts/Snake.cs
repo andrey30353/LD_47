@@ -23,8 +23,12 @@ public class Snake : MonoBehaviour
 
     Vector3 _input;
 
+    bool useHead;
+
     void Start()
     {
+        useHead = true;
+
         math = Curve.GetComponent<BGCcMath>();
         headPoint = Curve.Points[0];
         tailPoint = Curve.Points[Curve.Points.Length - 1];
@@ -54,11 +58,12 @@ public class Snake : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-           
+            useHead = !useHead;
         }
-        
+
         var horizontal = Input.GetAxis("Horizontal");
         var vertical = Input.GetAxis("Vertical");
 
@@ -66,8 +71,15 @@ public class Snake : MonoBehaviour
 
         //print(headPoint.PositionWorld);
         //print(tailPoint.PositionWorld);
+        if(useHead)
+        {
+            headPoint.PositionWorld = headPoint.PositionWorld + _input * Speed * Time.deltaTime;
+        }            
+        else
+        {
+            tailPoint.PositionWorld = tailPoint.PositionWorld + _input * Speed * Time.deltaTime;
+        }
 
-        headPoint.PositionWorld = headPoint.PositionWorld + _input * Speed * Time.deltaTime;
         /*
                 var nextHeadPosition = (headPoint.PositionWorld + _input * Speed * Time.deltaTime);
 
@@ -78,6 +90,7 @@ public class Snake : MonoBehaviour
                 }       
                 */
         SetPosition();
+
     }
 
     private void SetPosition()
