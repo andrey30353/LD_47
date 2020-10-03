@@ -7,28 +7,28 @@ using UnityEngine;
 public class Snake : MonoBehaviour
 {
     public BGCurve Curve;
-    public BGCcMath math;
-   
+    public BGCcMath math;   
 
-    public Transform Head;   
-    public Transform Tail;
+    public Transform Head;    
+    public Transform Tail;     
+
+    public float Speed = 10;
+    public float Length = 6;
 
     public GameObject ModelContent;
     public List<Transform> _parts;
 
-    public float x;
-    public float y;
-    public float z;
-
-    public float Speed = 10;
-    public float Length = 6;
+    BGCurvePointI headPoint;
+    BGCurvePointI tailPoint;
 
     Vector3 _input;
 
     void Start()
     {
         math = Curve.GetComponent<BGCcMath>();
-
+        headPoint = Curve.Points[0];
+        tailPoint = Curve.Points[Curve.Points.Length - 1];
+        
         //Length = (Head.position - Tail.position).magnitude;
 
         //var parts = ModelContent.GetComponentsInChildren<Transform>();
@@ -56,29 +56,27 @@ public class Snake : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            foreach (var item in _parts)
-            {
-                item.Rotate(new Vector3(0, 90, 0));
-            }
+           
         }
-
-
-
-        /*
+        
         var horizontal = Input.GetAxis("Horizontal");
         var vertical = Input.GetAxis("Vertical");
 
         _input = new Vector3(horizontal, vertical, 0 );
 
-        var nextHeadPosition = (Head.transform.position + _input * Speed * Time.deltaTime);
+        //print(headPoint.PositionWorld);
+        //print(tailPoint.PositionWorld);
 
-        var distanceForNextHeadPosition = (Tail.position - nextHeadPosition).magnitude;
-        if (distanceForNextHeadPosition < Length)
-        {
-            Head.transform.position = nextHeadPosition;
-        } 
-         */
+        headPoint.PositionWorld = headPoint.PositionWorld + _input * Speed * Time.deltaTime;
+        /*
+                var nextHeadPosition = (headPoint.PositionWorld + _input * Speed * Time.deltaTime);
 
+                var distanceForNextHeadPosition = (tailPoint.PositionWorld - nextHeadPosition).magnitude;
+                if (distanceForNextHeadPosition < Length)
+                {
+                    Head.transform.position = nextHeadPosition;
+                }       
+                */
         SetPosition();
     }
 
