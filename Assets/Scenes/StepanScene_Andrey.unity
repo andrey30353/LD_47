@@ -139,8 +139,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.008041752, y: 0.0056771007, z: 0.007594707}
-  m_Center: {x: 0.0005594903, y: 0.0018885405, z: -0.00006231516}
+  m_Size: {x: 0.008041752, y: 0.0053953156, z: 0.007594707}
+  m_Center: {x: 0.0005594902, y: 0.0017476474, z: -0.00006231507}
 --- !u!114 &59945717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,6 +235,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3125661182283932236, guid: a876f8620e8acc94bbe3d985a882d83f, type: 3}
+      propertyPath: MaxGravity
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3125661182283932237, guid: a876f8620e8acc94bbe3d985a882d83f, type: 3}
       propertyPath: m_Name
       value: Snake New
@@ -504,8 +508,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.030197239, y: 0.005300208, z: 0.025996}
-  m_Center: {x: 0.0007418981, y: 0.002050287, z: 0.0003765141}
+  m_Size: {x: 0.030197239, y: 0.004202982, z: 0.025995998}
+  m_Center: {x: 0.0007418978, y: 0.0015016741, z: 0.0003765142}
 --- !u!1001 &260304972
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -712,6 +716,40 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!1 &321991373 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6610455621254621753, guid: a876f8620e8acc94bbe3d985a882d83f, type: 3}
+  m_PrefabInstance: {fileID: 140655406}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &321991374
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321991373}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &321991375
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321991373}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &476186103
 GameObject:
   m_ObjectHideFlags: 0
@@ -932,8 +970,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collider: {fileID: 0}
---- !u!65 &570158846
-BoxCollider:
+--- !u!64 &570158846
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -942,9 +980,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.008374403, y: 0.012549231, z: 0.013248914}
-  m_Center: {x: 0.0000031108514, y: 0.000005213545, z: 0.0000040689497}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3996760141626369306, guid: 041e81da00e762e4dbe8f8349077929d, type: 3}
 --- !u!1001 &596410107
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1294,8 +1333,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collider: {fileID: 0}
---- !u!65 &694626726
-BoxCollider:
+--- !u!64 &694626726
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1304,9 +1343,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.013309865, y: 0.0059837466, z: 0.013838821}
-  m_Center: {x: 0.002590277, y: 0.0020136163, z: -0.00019275618}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7631362730829848628, guid: 5f50c53f4efff6947b14764e338c5855, type: 3}
 --- !u!1 &729848196
 GameObject:
   m_ObjectHideFlags: 0
@@ -1456,8 +1496,8 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: caafe7e09d8a25849b46dd881abf1f7c, type: 3}
   m_PrefabInstance: {fileID: 769855662}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &793410489
-BoxCollider:
+--- !u!135 &793410489
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1467,8 +1507,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.01806757, y: 0.012549226, z: 0.01874482}
-  m_Center: {x: 0.00021142751, y: 0.003968988, z: 0.0022602326}
+  m_Radius: 0.008434539
+  m_Center: {x: 0.0002114278, y: 0.001, z: 0.0016311284}
 --- !u!114 &793410490
 MonoBehaviour:
   m_ObjectHideFlags: 0

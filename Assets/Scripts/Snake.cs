@@ -15,7 +15,8 @@ public class Snake : MonoBehaviour
     public float Speed = 10;
     public float Length = 6;
 
-    public float Gravity = 10;
+    public float MaxGravity = 10;
+    private float gravity;
 
     public SphereCollider HeadCollider;
     public SphereCollider TailCollider;
@@ -41,10 +42,12 @@ public class Snake : MonoBehaviour
       
     public bool HeadIsCollided = false;
     public Collider HeadCollidedWith;
+    public bool MidIsCollided = false;
     public bool TailIsCollided = false;
     public Collider TailCollidedWith;
 
     float CurrentLength => (headPoint.PositionWorld - tailPoint.PositionWorld).magnitude;
+
 
     void Start()
     {
@@ -132,12 +135,24 @@ public class Snake : MonoBehaviour
             tailPoint.PositionWorld = tailPoint.PositionWorld + direction * Speed * Time.deltaTime;
         }
 
+        if (MidIsCollided)
+        {
+            if (useHead)            
+                tailPoint.PositionWorld = tailPoint.PositionWorld + Vector3.up * Speed * 0.5f * Time.deltaTime;            
+            else
+                headPoint.PositionWorld = headPoint.PositionWorld + Vector3.up * Speed * 0.5f * Time.deltaTime;           
+        }
+
 
         ApplyGravity();
 
         UpdateMidPoint();
 
         UpdateBones();
+
+        // постепенное увеличение гравитации чтобы в начале игры не провалится
+        gravity += Time.deltaTime;
+        gravity = Mathf.Clamp(gravity, 0, MaxGravity);
     }
 
     private void UpdatePosition()
@@ -216,8 +231,8 @@ public class Snake : MonoBehaviour
           
         if(!TailIsCollided && !HeadIsCollided)
         {
-            headPoint.PositionWorld = headPoint.PositionWorld + Vector3.down * Gravity  *  Time.deltaTime;
-            tailPoint.PositionWorld = tailPoint.PositionWorld + Vector3.down * Gravity *  Time.deltaTime;
+            headPoint.PositionWorld = headPoint.PositionWorld + Vector3.down * gravity *  Time.deltaTime;
+            tailPoint.PositionWorld = tailPoint.PositionWorld + Vector3.down * gravity *  Time.deltaTime;
             return;
         }
 
@@ -226,14 +241,14 @@ public class Snake : MonoBehaviour
             if (TailIsCollided)
                 return;
 
-            tailPoint.PositionWorld = tailPoint.PositionWorld + Vector3.down * Gravity * Time.deltaTime;
+            tailPoint.PositionWorld = tailPoint.PositionWorld + Vector3.down * gravity * Time.deltaTime;
         }
         else
         {
             if (HeadIsCollided)
                 return;
 
-            headPoint.PositionWorld = headPoint.PositionWorld + Vector3.down * Gravity * Time.deltaTime;
+            headPoint.PositionWorld = headPoint.PositionWorld + Vector3.down * gravity * Time.deltaTime;
         }
 
         // отменяем все, если длина увеличилась       
@@ -241,11 +256,11 @@ public class Snake : MonoBehaviour
         {
             if (useHead)
             {
-                tailPoint.PositionWorld = tailPoint.PositionWorld - Vector3.down * Gravity * Time.deltaTime;
+                tailPoint.PositionWorld = tailPoint.PositionWorld - Vector3.down * gravity * Time.deltaTime;
             }
             else
             {
-                headPoint.PositionWorld = headPoint.PositionWorld - Vector3.down * Gravity * Time.deltaTime;
+                headPoint.PositionWorld = headPoint.PositionWorld - Vector3.down * gravity * Time.deltaTime;
             }
         }
     }

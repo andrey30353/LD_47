@@ -11,7 +11,7 @@ public class CantMove : MonoBehaviour
 
     void Awake()
     {
-        collider = GetComponent<BoxCollider>();     
+        collider = GetComponent<BoxCollider>();        
     }
 
     private void Update()
@@ -20,48 +20,7 @@ public class CantMove : MonoBehaviour
             return;       
     }
 
-    /*private void OnTriggerStay(Collider other)
-    {
-        //if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
-        //if (other.gameObject.tag == "Head")
-        //{
-        //    if(player != null)
-        //        player.Speed = 0;
-        //}
-    }*/
-
-    //void OnCollisionEnter(Collision collision)
-    //{
-
-    //}
-
-    //void OnCollisionExit(Collision collision)
-    //{
-
-    //}
-
     private void OnTriggerEnter(Collider other)
-    {
-        //if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
-        //print(other.name);
-        if (other.gameObject.tag == "Head")
-        {
-            var player = other.GetComponentInParent<Snake>();
-            player.HeadIsCollided = true;
-            player.HeadCollidedWith = collider;
-            print("HeadCollide - OnTriggerEnter");
-        }
-
-        if (other.gameObject.tag == "Tail")
-        {
-            var player = other.gameObject.GetComponentInParent<Snake>();
-            player.TailIsCollided = true;
-            player.TailCollidedWith = collider;
-            print("TailIsCollided - OnTriggerEnter");
-        }
-    }
-
-    private void OnTriggerStay(Collider other)
     {
         //if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         //print(other.name);
@@ -73,12 +32,45 @@ public class CantMove : MonoBehaviour
             //print("HeadCollide - OnTriggerEnter");
         }
 
+        if (other.gameObject.tag == "Mid")
+        {
+            var player = other.gameObject.GetComponentInParent<Snake>();
+            player.MidIsCollided = true;           
+            //print("MidIsCollided - OnTriggerEnter");
+        }
+
         if (other.gameObject.tag == "Tail")
         {
             var player = other.gameObject.GetComponentInParent<Snake>();
             player.TailIsCollided = true;
             player.TailCollidedWith = collider;
-            //print("TailIsCollided - OnTriggerEnter");
+           // print("TailIsCollided - OnTriggerEnter");
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        //if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        //print(other.name);
+        if (other.gameObject.tag == "Head")
+        {
+            var player = other.GetComponentInParent<Snake>();
+            player.HeadIsCollided = true;
+            player.HeadCollidedWith = collider;           
+        }
+
+        if (other.gameObject.tag == "Mid")
+        {
+            var player = other.gameObject.GetComponentInParent<Snake>();
+            player.MidIsCollided = true;
+            //print("MidIsCollided - OnTriggerEnter");
+        }
+
+        if (other.gameObject.tag == "Tail")
+        {
+            var player = other.gameObject.GetComponentInParent<Snake>();
+            player.TailIsCollided = true;
+            player.TailCollidedWith = collider;          
         }
     }
 
@@ -89,7 +81,14 @@ public class CantMove : MonoBehaviour
             var player = other.gameObject.GetComponentInParent<Snake>();
             player.HeadIsCollided = false;
             player.TailCollidedWith = null;
-            print("HeadCollide - OnTriggerExit");
+           // print("HeadCollide - OnTriggerExit");
+        }
+
+        if (other.gameObject.tag == "Mid")
+        {
+            var player = other.gameObject.GetComponentInParent<Snake>();
+            player.MidIsCollided = false;
+            //print("MidIsCollided - OnTriggerEnter");
         }
 
         if (other.gameObject.tag == "Tail")
@@ -97,7 +96,7 @@ public class CantMove : MonoBehaviour
             var player = other.gameObject.GetComponentInParent<Snake>();
             player.TailIsCollided = false;
             player.TailCollidedWith = null;
-            print("TailCollide - OnTriggerEnter");
+            //print("TailCollide - OnTriggerEnter");
         }
     }
 
