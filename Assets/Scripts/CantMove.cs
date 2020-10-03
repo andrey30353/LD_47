@@ -6,8 +6,8 @@ public class CantMove : MonoBehaviour
     Snake player;
 
 
-    public Vector3 ColliderCenter => transform.TransformPoint(collider.center);
-    public Vector3 ColliderSize => transform.TransformPoint(collider.bounds.size);
+    //public Vector3 ColliderCenter => transform.TransformPoint(collider.center);
+    //public Vector3 ColliderSize => transform.TransformPoint(collider.bounds.size);
 
     void Awake()
     {
