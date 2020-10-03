@@ -2,7 +2,7 @@
 
 public class CantMove : MonoBehaviour
 {  
-    public BoxCollider collider;
+    public Collider collider;
     Snake player;
 
 

@@ -40,9 +40,9 @@ public class Snake : MonoBehaviour
     float step => (float)1 / (_parts.Count - 1);
       
     public bool HeadIsCollided = false;
-    public BoxCollider HeadCollidedWith;
+    public Collider HeadCollidedWith;
     public bool TailIsCollided = false;
-    public BoxCollider TailCollidedWith;
+    public Collider TailCollidedWith;
 
     float CurrentLength => (headPoint.PositionWorld - tailPoint.PositionWorld).magnitude;
 
@@ -82,13 +82,11 @@ public class Snake : MonoBehaviour
         if (CurrentLength < minDistance)
         {
             if (useHead)
-            {
-                //var direction = (tailPoint.PositionWorld - headPoint.PositionWorld).normalized;
+            {               
                 headPoint.PositionWorld = headPoint.PositionWorld + Vector3.up * Speed * Time.deltaTime;
             }
             else
-            {
-                var direction = (headPoint.PositionWorld - tailPoint.PositionWorld).normalized;
+            {                
                 tailPoint.PositionWorld = tailPoint.PositionWorld + Vector3.up * Speed * Time.deltaTime;
             }
         }
@@ -96,10 +94,10 @@ public class Snake : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.T))
         {
-            foreach (var item in _parts)
-            {
-                item.Rotate(new Vector3(0, 90, 0));
-            }
+            //foreach (var item in _parts)
+            //{
+            //    item.Rotate(new Vector3(0, 90, 0));
+            //}
         }
 
         if (Input.GetKeyDown(KeyCode.Space))

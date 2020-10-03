@@ -236,40 +236,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 51028803}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &58412447 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2455805361534332656, guid: a876f8620e8acc94bbe3d985a882d83f, type: 3}
-  m_PrefabInstance: {fileID: 3125661181185411745}
-  m_PrefabAsset: {fileID: 0}
---- !u!135 &58412449
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 58412447}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.2
-  m_Center: {x: 0.1, y: 0, z: -0.01}
---- !u!54 &58412450
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 58412447}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &64410905
 GameObject:
   m_ObjectHideFlags: 0
@@ -1140,7 +1106,9 @@ MonoBehaviour:
   ModelContent: {fileID: 0}
   _parts: []
   HeadIsCollided: 0
+  HeadCollidedWith: {fileID: 0}
   TailIsCollided: 0
+  TailCollidedWith: {fileID: 0}
 --- !u!4 &361311630
 Transform:
   m_ObjectHideFlags: 0
@@ -3519,7 +3487,9 @@ MonoBehaviour:
   ModelContent: {fileID: 0}
   _parts: []
   HeadIsCollided: 0
+  HeadCollidedWith: {fileID: 0}
   TailIsCollided: 0
+  TailCollidedWith: {fileID: 0}
 --- !u!4 &1261493978
 Transform:
   m_ObjectHideFlags: 0
@@ -5743,40 +5713,6 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
---- !u!1 &2134059775 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 908104880973671721, guid: a876f8620e8acc94bbe3d985a882d83f, type: 3}
-  m_PrefabInstance: {fileID: 3125661181185411745}
-  m_PrefabAsset: {fileID: 0}
---- !u!135 &2134059777
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2134059775}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.13
-  m_Center: {x: -0.15, y: 0, z: -0.06}
---- !u!54 &2134059778
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2134059775}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &2138301182
 GameObject:
   m_ObjectHideFlags: 0
@@ -5897,34 +5833,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 908104880973671721, guid: a876f8620e8acc94bbe3d985a882d83f, type: 3}
-      propertyPath: m_TagString
-      value: Tail
-      objectReference: {fileID: 0}
-    - target: {fileID: 2455805361534332656, guid: a876f8620e8acc94bbe3d985a882d83f, type: 3}
-      propertyPath: m_TagString
-      value: Head
-      objectReference: {fileID: 0}
-    - target: {fileID: 3125661181950133782, guid: a876f8620e8acc94bbe3d985a882d83f, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3125661181950133782, guid: a876f8620e8acc94bbe3d985a882d83f, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3125661181950133782, guid: a876f8620e8acc94bbe3d985a882d83f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 3125661181950133782, guid: a876f8620e8acc94bbe3d985a882d83f, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.13
-      objectReference: {fileID: 0}
-    - target: {fileID: 3125661182283932236, guid: a876f8620e8acc94bbe3d985a882d83f, type: 3}
-      propertyPath: Gravity
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3125661182283932237, guid: a876f8620e8acc94bbe3d985a882d83f, type: 3}
       propertyPath: m_Name
       value: Snake New
