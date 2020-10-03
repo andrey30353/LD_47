@@ -19,10 +19,12 @@ public class Snake : MonoBehaviour
     private float gravity;
 
     public SphereCollider HeadCollider;
-    public SphereCollider TailCollider;
+    public SphereCollider TailCollider;   
 
     public GameObject ModelContent;
-    public List<Transform> _parts;
+    public SkinnedMeshRenderer mesh;
+
+    public List<Transform> _parts;    
 
     BGCurvePointI headPoint;
     BGCurvePointI midPoint;
@@ -48,6 +50,7 @@ public class Snake : MonoBehaviour
 
     float CurrentLength => (headPoint.PositionWorld - tailPoint.PositionWorld).magnitude;
 
+   
 
     void Start()
     {
@@ -261,6 +264,28 @@ public class Snake : MonoBehaviour
             else
             {
                 headPoint.PositionWorld = headPoint.PositionWorld - Vector3.down * gravity * Time.deltaTime;
+            }
+        }
+    }
+
+    public void Dead()
+    {
+        mesh.material.color = Color.grey;
+        this.enabled = false;
+
+        foreach (var item in _parts)
+        {
+            var collider = item.GetComponent<SphereCollider>();
+            if(collider != null)
+            {
+                collider.isTrigger = true;
+                item.gameObject.AddComponent<CantMove>();
+            }
+
+            var rb = item.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                Destroy(rb);
             }
         }
     }
