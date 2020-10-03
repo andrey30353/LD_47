@@ -65,6 +65,34 @@ public class Snake : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (CurrentLength > Length )
+        {
+            if (useHead)
+            {
+                var direction = (tailPoint.PositionWorld - headPoint.PositionWorld).normalized;
+                headPoint.PositionWorld = headPoint.PositionWorld + direction * Speed * Time.deltaTime;
+            }
+            else
+            {
+                var direction = (headPoint.PositionWorld - tailPoint.PositionWorld).normalized;
+                tailPoint.PositionWorld = tailPoint.PositionWorld + direction * Speed * Time.deltaTime;
+            }
+        }
+
+        if (CurrentLength < minDistance)
+        {
+            if (useHead)
+            {
+                //var direction = (tailPoint.PositionWorld - headPoint.PositionWorld).normalized;
+                headPoint.PositionWorld = headPoint.PositionWorld + Vector3.up * Speed * Time.deltaTime;
+            }
+            else
+            {
+                var direction = (headPoint.PositionWorld - tailPoint.PositionWorld).normalized;
+                tailPoint.PositionWorld = tailPoint.PositionWorld + Vector3.up * Speed * Time.deltaTime;
+            }
+        }
+
 
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -94,10 +122,16 @@ public class Snake : MonoBehaviour
             RevertPosition();
         }
 
-        if (HeadIsCollided)
+        if (HeadIsCollided && useHead)
         {
-           var direction = (HeadCollidedWith.center - headPoint.PositionWorld).normalized;
+            var direction = Vector3.up;// (HeadCollidedWith.center - headPoint.PositionWorld).normalized;
             headPoint.PositionWorld = headPoint.PositionWorld + direction * Speed * Time.deltaTime;
+        }
+
+        if (TailIsCollided && !useHead)
+        {
+            var direction = Vector3.up;// (HeadCollidedWith.center - headPoint.PositionWorld).normalized;
+            tailPoint.PositionWorld = tailPoint.PositionWorld + direction * Speed * Time.deltaTime;
         }
 
 

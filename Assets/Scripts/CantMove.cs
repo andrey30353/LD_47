@@ -88,7 +88,7 @@ public class CantMove : MonoBehaviour
         {
             var player = other.gameObject.GetComponentInParent<Snake>();
             player.HeadIsCollided = false;
-            player.HeadCollidedWith = null;
+            player.TailCollidedWith = null;
             print("HeadCollide - OnTriggerExit");
         }
 
