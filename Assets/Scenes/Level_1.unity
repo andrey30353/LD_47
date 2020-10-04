@@ -1548,7 +1548,7 @@ PrefabInstance:
     - target: {fileID: 8090082993932693985, guid: 0590fe00fce472d43bfb53d1a5af12a8, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 77a26216964c2ba418962b5c7aec18b5, type: 3}
+      objectReference: {fileID: 21300000, guid: e7d0488546a739648a5d530ebb78f903, type: 3}
     - target: {fileID: 8090082993932693999, guid: 0590fe00fce472d43bfb53d1a5af12a8, type: 3}
       propertyPath: m_Name
       value: Comic
