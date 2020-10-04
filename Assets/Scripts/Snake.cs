@@ -360,10 +360,7 @@ public class Snake : MonoBehaviour
         _inputHeadX = Mathf.Clamp(_inputHeadX, -1, 1);
         _inputHeadY = Mathf.Clamp(_inputHeadY, -1, 1);
         _inputHead = new Vector3(_inputHeadX, _inputHeadY, 0);
-
         
-           
-
         //  хвост
         if (_inputTailX > 0.1f)
             _inputTailX -= 0.05f;
@@ -396,14 +393,7 @@ public class Snake : MonoBehaviour
 
         _inputTailX = Mathf.Clamp(_inputTailX, -1, 1);
         _inputTailY = Mathf.Clamp(_inputTailY, -1, 1);
-        _inputTail = new Vector3(_inputTailX, _inputTailY, 0);
-        //// 
-        //if (_inputHead == Vector3.zero)
-        //{
-        //    _inputTail = new Vector3(_inputTailX, _inputTailY, 0);
-        //}   
-        //else
-        //{ }
+        _inputTail = new Vector3(_inputTailX, _inputTailY, 0);        
     }
 
 
@@ -481,28 +471,7 @@ public class Snake : MonoBehaviour
             //_parts[i].rotation = Quaternion.LookRotation(tangAtSplineCenter) * Quaternion.Euler(0, 90, 0);
         }
     }
-
-    /*
-    private void OnTriggerEnter(Collider other)
-    {
-        //if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
-        print(other.name);
-        if (other.gameObject.layer == LayerMask.NameToLayer("Collide"))
-        {
-           // var player = other.GetComponentInParent<Snake>();
-            //player.HeadIsCollided = true;
-            print("Collide - OnTriggerEnter");
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Collide"))
-        {           
-            print("Collide - OnTriggerExit");
-        }       
-    }*/
-
+  
 
 
 }

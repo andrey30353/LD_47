@@ -15,7 +15,7 @@ public class Game : MonoBehaviour
         Instance = this;
     }
 
-
+    /*
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F))
@@ -24,7 +24,7 @@ public class Game : MonoBehaviour
 
             CurrentWorm = Instantiate(WormPrefab, SpawnPoint);
         }
-    } 
+    } */
     
 
 
