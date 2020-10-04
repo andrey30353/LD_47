@@ -314,6 +314,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1391556655, guid: a876f8620e8acc94bbe3d985a882d83f, type: 3}
+      propertyPath: WinScreen
+      value: 
+      objectReference: {fileID: 1643663549}
+    - target: {fileID: 1391556655, guid: a876f8620e8acc94bbe3d985a882d83f, type: 3}
+      propertyPath: Pause
+      value: 
+      objectReference: {fileID: 729165219}
     - target: {fileID: 3125661182283932236, guid: a876f8620e8acc94bbe3d985a882d83f, type: 3}
       propertyPath: soundEffector
       value: 
@@ -3846,27 +3854,6 @@ Transform:
   m_Father: {fileID: 1520714027}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1391556651 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2455805361534332656, guid: a876f8620e8acc94bbe3d985a882d83f, type: 3}
-  m_PrefabInstance: {fileID: 140655406}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1391556655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1391556651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2adf763aa37bca419cc69dcae76a800, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  strawberryAmountOnLevel: 1
-  currentStrawberryAmount: 0
-  WinScreen: {fileID: 1643663549}
-  Pause: {fileID: 729165219}
 --- !u!1 &1416378033
 GameObject:
   m_ObjectHideFlags: 0

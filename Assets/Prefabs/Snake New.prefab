@@ -97,6 +97,22 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.2
   m_Center: {x: 0.1, y: 0, z: -0.01}
+--- !u!114 &1391556655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2455805361534332656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2adf763aa37bca419cc69dcae76a800, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  strawberryAmountOnLevel: 1
+  currentStrawberryAmount: 0
+  WinScreen: {fileID: 0}
+  Pause: {fileID: 0}
 --- !u!1 &3125661181950133783
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,6 +395,7 @@ MonoBehaviour:
   MidIsCollided: 0
   TailIsCollided: 0
   TailCollidedWith: {fileID: 0}
+  soundEffector: {fileID: 0}
 --- !u!135 &1690571536
 SphereCollider:
   m_ObjectHideFlags: 0
