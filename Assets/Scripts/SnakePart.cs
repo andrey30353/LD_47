@@ -32,17 +32,21 @@ public class SnakePart : MonoBehaviour
     {
         //onGround = true;
         // EvaluateCollision(collision);
-       SetInfo(Type, false, Vector3.zero);
+       SetInfo(Type, false, Vector3.zero, false);
     }
 
     private void EvaluateCollision(Collision collision)
     {
         var contactNorm = Vector3.up;
         var cantMove = collision.gameObject.GetComponent<CantMove>();
+        var inWater = false;
         if(cantMove != null)
         {
             if (cantMove.Type == ForceType.Down)
                 contactNorm = Vector3.down;
+
+            inWater = true;
+
           // print(cantMove.Type);
         }
 
@@ -69,11 +73,11 @@ public class SnakePart : MonoBehaviour
         //    contactNorm = Vector3.zero;
         //}
        */
-        SetInfo(Type, true, contactNorm);
+        SetInfo(Type, true, contactNorm, inWater);
         //Bounce(Type, contactNorm);
     }
 
-    private void SetInfo(SnakePartType type, bool value, Vector3 normal)
+    private void SetInfo(SnakePartType type, bool value, Vector3 normal, bool inWater)
     {
         normal.z = 0;
         normal.Normalize();
@@ -81,19 +85,22 @@ public class SnakePart : MonoBehaviour
         {
             case SnakePartType.Head:
                 snake.HeadIsCollided = value;
-                snake.headContactNormal = normal; 
+                snake.headContactNormal = normal;
+                snake.HeadInWater = inWater;
                 //Debug.DrawLine(snake.headPoint.PositionWorld, snake.midPoint.PositionWorld + normal, Color.red, 1f);
                 break;
 
             case SnakePartType.Mid:
                 snake.MidIsCollided = value;
                 snake.midContactNormal = normal;
+               
                 //Debug.DrawLine(snake.midPoint.PositionWorld, snake.midPoint.PositionWorld + normal, Color.red, 1f);
                 break;
 
             case SnakePartType.Tail:
                 snake.TailIsCollided = value;
                 snake.tailContactNormal = normal;
+                snake.TailInWater = inWater;
                 //Debug.DrawLine(snake.tailPoint.PositionWorld, snake.midPoint.PositionWorld + normal, Color.red, 1f);
                 break;
 

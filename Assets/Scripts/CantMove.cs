@@ -13,6 +13,8 @@ public class CantMove : MonoBehaviour
 
     public ForceType Type = ForceType.Up;
 
+    public bool Water = false;
+
     //public Vector3 ColliderCenter => transform.TransformPoint(collider.center);
     //public Vector3 ColliderSize => transform.TransformPoint(collider.bounds.size);
 

@@ -44,6 +44,11 @@ public class Snake : MonoBehaviour
     // куда смотрим - через координаты
     bool rightView;
 
+    public bool HeadInWater;
+    public bool TailInWater;
+
+    public bool InWater => HeadInWater && TailInWater;
+
     float step => (float)1 / (_parts.Count - 1);
 
     public bool HeadIsCollided = false;
@@ -94,9 +99,12 @@ public class Snake : MonoBehaviour
         //UpdateBones();
     }
 
+    float timeInWater = 0f;
     // Update is called once per frame
     void Update()
     {
+       
+             
         ProcessInput(); 
 
         //print(headPoint.PositionWorld);
@@ -278,12 +286,23 @@ public class Snake : MonoBehaviour
 
     private bool isDead = false;
     public void Dead()
-    {
+    {       
         isDead = true;        
     }
 
     private void FixedUpdate()
     {
+        if (InWater)
+            timeInWater += Time.deltaTime;
+
+        if (timeInWater > 2f)
+        {
+            //Dead();
+            TimeBar.Instance.current = 0;
+
+            return;
+        }
+
         if (isDead)
             DelayedDead();
     }
@@ -312,6 +331,7 @@ public class Snake : MonoBehaviour
             }
         }
         this.enabled = false;
+
     }
 
     float _inputHeadX, _inputHeadY, _inputTailX, _inputTailY;

@@ -8,7 +8,7 @@ public class TimeBar : MonoBehaviour
     private float maxValue;
 	Color color = Color.red;		
 	public Slider slider;				
-    private float current;
+    public float current;
 
     public float timeAmount = 15f;
 	
@@ -24,6 +24,13 @@ public class TimeBar : MonoBehaviour
 	public bool IsActive => comic.activeSelf == false;
 
 	public PostProcessControll postProcessControl;
+	
+	public static TimeBar Instance;
+
+	public void Awake()
+	{
+		Instance = this;
+	}
 
 	void Start()
 	{
