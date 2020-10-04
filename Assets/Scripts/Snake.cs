@@ -320,7 +320,7 @@ public class Snake : MonoBehaviour
             {
                 collider.isTrigger = true;
                 item.gameObject.AddComponent<CantMove>();
-            }   */
+            }   
             }*/
 
             item.gameObject.layer = 0;
