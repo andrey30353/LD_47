@@ -51,6 +51,8 @@ public class Snake : MonoBehaviour
     float CurrentDistance => (headPoint.PositionWorld - tailPoint.PositionWorld).magnitude;
     float CurrentDistanceX => headPoint.PositionWorld.x - tailPoint.PositionWorld.x;
 
+    public SoundEffector soundEffector;
+
 
     void Start()
     {

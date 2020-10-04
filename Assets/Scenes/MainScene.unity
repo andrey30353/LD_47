@@ -235,6 +235,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3125661182283932236, guid: a876f8620e8acc94bbe3d985a882d83f, type: 3}
+      propertyPath: soundEffector
+      value: 
+      objectReference: {fileID: 1605657026}
     - target: {fileID: 3125661182283932237, guid: a876f8620e8acc94bbe3d985a882d83f, type: 3}
       propertyPath: m_Name
       value: Snake New
@@ -3403,6 +3407,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1605657024}
   - component: {fileID: 1605657025}
+  - component: {fileID: 1605657026}
   m_Layer: 0
   m_Name: AudioSource
   m_TagString: Untagged
@@ -3520,6 +3525,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1605657026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1605657023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf4f99332a711484490f095a147b5cce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  crawlSound: {fileID: 8300000, guid: 57f1f713dc7dbc240a1eb882ae9582c0, type: 3}
 --- !u!1 &1607330466
 GameObject:
   m_ObjectHideFlags: 0
