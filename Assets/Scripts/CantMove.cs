@@ -21,7 +21,7 @@ public class CantMove : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-    {
+    {        
         //if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         //print(other.name);
         if (other.gameObject.tag == "Head")
@@ -75,7 +75,7 @@ public class CantMove : MonoBehaviour
     }
 
     private void OnTriggerExit(Collider other)
-    {
+    {       
         if (other.gameObject.tag == "Head")
         {
             var player = other.gameObject.GetComponentInParent<Snake>();

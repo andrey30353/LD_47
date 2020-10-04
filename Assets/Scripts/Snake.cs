@@ -24,13 +24,14 @@ public class Snake : MonoBehaviour
     public GameObject ModelContent;
     public SkinnedMeshRenderer mesh;
 
-    public List<Transform> _parts;    
+    public List<Transform> _parts;
 
-    BGCurvePointI headPoint;
-    BGCurvePointI midPoint;
-    BGCurvePointI tailPoint;
+    public BGCurvePointI headPoint;
+    public BGCurvePointI midPoint;
+    public BGCurvePointI tailPoint;
 
     float minDistance;
+    float prevLength;
 
     Vector3 _input;
 
@@ -53,6 +54,25 @@ public class Snake : MonoBehaviour
 
     public SoundEffector soundEffector;
 
+    public bool onGround;
+
+    public Vector3 headContactNormal;
+    public Vector3 midContactNormal;
+    public Vector3 tailContactNormal;
+
+    [SerializeField, Range(0f, 90f)]
+    public float maxGroundAngle = 25f;
+    public float minGroundDotProduct;
+
+    void OnValidate()
+    {
+        minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
+    }
+
+    void Awake()
+    {       
+        OnValidate();
+    }
 
     void Start()
     {
@@ -65,8 +85,9 @@ public class Snake : MonoBehaviour
         tailPoint = Curve.Points[2];
         
         Length = math.GetDistance();
-        minDistance = Length * 0.5f;               
-       
+        minDistance = Length * 0.5f;
+        prevLength = Length;
+
         //UpdateBones();
     }
 
@@ -145,7 +166,7 @@ public class Snake : MonoBehaviour
             {
                 if (HeadIsCollided)
                 {
-                    var direction = Vector3.up;// (HeadCollidedWith.center - headPoint.PositionWorld).normalized;
+                    var direction = headContactNormal;//Vector3.up;// (HeadCollidedWith.center - headPoint.PositionWorld).normalized;
                     headPoint.PositionWorld = headPoint.PositionWorld + direction * Speed * Time.deltaTime;
                 }
             }
@@ -153,7 +174,7 @@ public class Snake : MonoBehaviour
             {
                 if (TailIsCollided)
                 {
-                    var direction = Vector3.up;// (HeadCollidedWith.center - headPoint.PositionWorld).normalized;
+                    var direction = tailContactNormal;// Vector3.up;// (HeadCollidedWith.center - headPoint.PositionWorld).normalized;
                     tailPoint.PositionWorld = tailPoint.PositionWorld + direction * Speed * Time.deltaTime;
                 }
             }
@@ -168,8 +189,6 @@ public class Snake : MonoBehaviour
 
         }
 
-
-
         ApplyGravity();
 
         UpdateMidPoint();
@@ -182,9 +201,9 @@ public class Snake : MonoBehaviour
         gravity += Time.deltaTime;
         gravity = Mathf.Clamp(gravity, 0, MaxGravity);
     }
-
+   
     private bool IsIncorrectSnake()
-    {
+    {     
         var partOfLength = Length * 0.2f;
         var isPointPositionIncorrect = 
             midPoint.PositionWorld.x + partOfLength >= headPoint.PositionWorld.x  || 
