@@ -5887,6 +5887,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WinImage
       objectReference: {fileID: 0}
+    - target: {fileID: 7252306013510817530, guid: c72911e28f7b26d43ad4655e52cc20bd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7252306013510817533, guid: c72911e28f7b26d43ad4655e52cc20bd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5933,19 +5937,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7252306013510817533, guid: c72911e28f7b26d43ad4655e52cc20bd, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -0.000022888
       objectReference: {fileID: 0}
     - target: {fileID: 7252306013510817533, guid: c72911e28f7b26d43ad4655e52cc20bd, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0000076293945
+      value: 0.000022888
       objectReference: {fileID: 0}
     - target: {fileID: 7252306013510817533, guid: c72911e28f7b26d43ad4655e52cc20bd, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 350
+      value: 540.723
       objectReference: {fileID: 0}
     - target: {fileID: 7252306013510817533, guid: c72911e28f7b26d43ad4655e52cc20bd, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 350
+      value: 540.723
       objectReference: {fileID: 0}
     - target: {fileID: 7252306013510817533, guid: c72911e28f7b26d43ad4655e52cc20bd, type: 3}
       propertyPath: m_AnchorMin.x
