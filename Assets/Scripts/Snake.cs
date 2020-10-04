@@ -323,12 +323,12 @@ public class Snake : MonoBehaviour
 
         foreach (var item in _parts)
         {
-            var collider = item.GetComponent<SphereCollider>();
+            /*var collider = item.GetComponent<SphereCollider>();
             if(collider != null)
             {
                 collider.isTrigger = true;
                 item.gameObject.AddComponent<CantMove>();
-            }
+            }   */
 
             var rb = item.GetComponent<Rigidbody>();
             if (rb != null)
