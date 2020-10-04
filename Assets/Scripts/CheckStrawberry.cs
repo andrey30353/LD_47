@@ -1,37 +1,36 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class CheckStrawberry : MonoBehaviour
-{       
-    void OnTriggerEnter(Collider other)
+{
+    private Snake snake;
+
+    private void Awake()
     {
+        snake = GetComponentInParent<Snake>();
+    }
+
+    void OnTriggerEnter(Collider other)
+    {       
         if (other.CompareTag("Strawberry"))
         {
             var anim = other.GetComponent<StrawberryAnim>();
            
             if (anim != null)
             {
-                anim.IsEaten = true;
-                //anim.Eat();
-            }
-
-            
-
+                anim.IsEaten = snake.enabled;                
+            }    
         }
     }
 
     void OnTriggerStay(Collider other)
-    {
+    {       
         if (other.CompareTag("Strawberry"))
-        {
+        {           
             var anim = other.GetComponent<StrawberryAnim>();
 
             if (anim != null)
             {
-                anim.IsEaten = true;
-                //anim.Eat();
+                anim.IsEaten = snake.enabled;
             }
         }
     }
@@ -44,8 +43,7 @@ public class CheckStrawberry : MonoBehaviour
 
             if (anim != null)
             {
-                anim.IsEaten = false;
-                //anim.Eat();
+                anim.IsEaten = false;              
             }
         }
     }
