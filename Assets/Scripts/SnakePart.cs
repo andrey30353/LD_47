@@ -39,7 +39,7 @@ public class SnakePart : MonoBehaviour
     {
         var contactNorm = Vector3.up;
         //print("EvaluateCollision = " + collision.collider.name);        
-        for (int i = 0; i < collision.contactCount; i++)
+        /*for (int i = 0; i < collision.contactCount; i++)
         {
             Vector3 normal = collision.GetContact(i).normal;
             // Debug.Log($"{normal.y} ? {snake.minGroundDotProduct}");
@@ -60,7 +60,7 @@ public class SnakePart : MonoBehaviour
         //{
         //    contactNorm = Vector3.zero;
         //}
-       
+       */
         SetInfo(Type, true, contactNorm);
         //Bounce(Type, contactNorm);
     }
