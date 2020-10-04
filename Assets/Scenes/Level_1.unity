@@ -725,7 +725,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 28bc324a6b1aa4146b9ce08ee6e59475, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.17
+      value: 0.019
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 28bc324a6b1aa4146b9ce08ee6e59475, type: 3}
       propertyPath: m_LocalPosition.z
@@ -767,6 +767,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Strawberry
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 28bc324a6b1aa4146b9ce08ee6e59475, type: 3}
+      propertyPath: m_TagString
+      value: Strawberry
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28bc324a6b1aa4146b9ce08ee6e59475, type: 3}
 --- !u!4 &260304973 stripped
@@ -792,6 +796,22 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.45
   m_Center: {x: -0.12, y: -0.032390222, z: 0.5001215}
+--- !u!54 &260304978
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260304974}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &304818322
 GameObject:
   m_ObjectHideFlags: 0
@@ -1584,6 +1604,10 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8090082993932693985, guid: 0590fe00fce472d43bfb53d1a5af12a8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 77a26216964c2ba418962b5c7aec18b5, type: 3}
     - target: {fileID: 8090082993932693999, guid: 0590fe00fce472d43bfb53d1a5af12a8, type: 3}
       propertyPath: m_Name
       value: Comic
@@ -1913,19 +1937,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4216960389729653082, guid: 2668c57e14578bf4abe72b341d86978d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -80.8
+      value: -58.77
       objectReference: {fileID: 0}
     - target: {fileID: 4216960389729653082, guid: 2668c57e14578bf4abe72b341d86978d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 34.5
+      value: 74.66
       objectReference: {fileID: 0}
     - target: {fileID: 4216960389729653082, guid: 2668c57e14578bf4abe72b341d86978d, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 149.7124
+      value: 117.53516
       objectReference: {fileID: 0}
     - target: {fileID: 4216960389729653082, guid: 2668c57e14578bf4abe72b341d86978d, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 52.9765
+      value: 149.31601
       objectReference: {fileID: 0}
     - target: {fileID: 4216960389729653082, guid: 2668c57e14578bf4abe72b341d86978d, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1974,6 +1998,14 @@ PrefabInstance:
     - target: {fileID: 4216960389729653083, guid: 2668c57e14578bf4abe72b341d86978d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
       value: PlayOneShot
+      objectReference: {fileID: 0}
+    - target: {fileID: 4216960389729653084, guid: 2668c57e14578bf4abe72b341d86978d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4216960389729653084, guid: 2668c57e14578bf4abe72b341d86978d, type: 3}
+      propertyPath: m_Color.a
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2668c57e14578bf4abe72b341d86978d, type: 3}
