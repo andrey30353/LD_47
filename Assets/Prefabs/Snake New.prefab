@@ -111,6 +111,22 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.2
   m_Center: {x: 0.1, y: 0, z: -0.01}
+--- !u!114 &140655408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2455805361534332656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2adf763aa37bca419cc69dcae76a800, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  strawberryAmountOnLevel: 0
+  currentStrawberryAmount: 0
+  WinScreen: {fileID: 0}
+  Pause: {fileID: 0}
 --- !u!114 &1743889670
 MonoBehaviour:
   m_ObjectHideFlags: 0
