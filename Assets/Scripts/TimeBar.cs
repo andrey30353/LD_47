@@ -21,8 +21,11 @@ public class TimeBar : MonoBehaviour
 
 	public GameObject comic;
 
+	public bool IsActive => comic.activeSelf == false;
 
-    void Start()
+	public PostProcessControll postProcessControl;
+
+	void Start()
 	{
 		maxValue = timeAmount; 	
 
@@ -32,18 +35,41 @@ public class TimeBar : MonoBehaviour
 		slider.minValue = 0;
 		current = maxValue;
 
+
+		//StartCoroutine(Beep);
+	}	
+
+	private IEnumerable Beep()
+	{
+		while (true)
+		{
+			if (!IsActive)
+				yield return null;
+
+
+			yield return new WaitForSeconds(1f);
+		}		
 	}
 
-
-    void Update()
+	private bool isBeeped = false;
+	void Update()
 	{	
 		if(comic.activeSelf == false) current -= Time.deltaTime;
 
-		if (current < 0) current = 0;
+		if (!isBeeped)
+		{ 
+			StartCoroutine(postProcessControl.Beep());
+			isBeeped = true;
+		}
+
+		if (current < 0)
+		{ 
+			current = 0;			
+		}
 
 		if (current > maxValue) current = maxValue;
 
-		slider.value = current;
+		slider.value = current;				
 
 		CheckDead();
 	}
@@ -53,6 +79,9 @@ public class TimeBar : MonoBehaviour
 	{
 		if (current <= 0)
 		{
+			StartCoroutine(postProcessControl.BigBeep());
+			
+
 			current = maxValue;
 
 			CurrentWorm.Dead();

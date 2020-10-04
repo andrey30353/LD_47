@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Game : MonoBehaviour
@@ -17,12 +18,15 @@ public class Game : MonoBehaviour
     public Button Pause;
     public Image WinScreen;
 
-    public PostProcessControll postProcessControl;
+ 
+
 
     public void Awake()
     {
         Instance = this;
     }
+
+   
 
     /*
     void Update()
