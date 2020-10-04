@@ -9,6 +9,8 @@ public class UI : MonoBehaviour
 
     public void Start()
     {
+        Time.timeScale = 1f;
+
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             PlayerPrefs.SetInt("ContinueLevel", 1);
