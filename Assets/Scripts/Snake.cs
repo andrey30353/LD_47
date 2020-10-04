@@ -105,11 +105,7 @@ public class Snake : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.T))
         {
-            headPoint.ControlFirstLocal += Vector3.left * 0.1f;
-            //foreach (var item in _parts)
-            //{
-            //    item.Rotate(new Vector3(0, 90, 0));
-            //}
+            headPoint.ControlFirstLocal += Vector3.left * 0.1f;            
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -365,6 +361,9 @@ public class Snake : MonoBehaviour
         _inputHeadY = Mathf.Clamp(_inputHeadY, -1, 1);
         _inputHead = new Vector3(_inputHeadX, _inputHeadY, 0);
 
+        
+           
+
         //  хвост
         if (_inputTailX > 0.1f)
             _inputTailX -= 0.05f;
@@ -382,19 +381,29 @@ public class Snake : MonoBehaviour
         if (_inputTailY > -0.1f && _inputTailY < 0.1f)
             _inputTailY = 0;
 
-        if (Input.GetKey(KeyCode.A))
-            _inputTailX -= 0.2f;
-        if (Input.GetKey(KeyCode.D))
-            _inputTailX += 0.2f;
+        if (_inputHead == Vector3.zero)
+        {
+            if (Input.GetKey(KeyCode.A))
+                _inputTailX -= 0.2f;
+            if (Input.GetKey(KeyCode.D))
+                _inputTailX += 0.2f;
 
-        if (Input.GetKey(KeyCode.W))
-            _inputTailY += 0.2f;
-        if (Input.GetKey(KeyCode.S))
-            _inputTailY -= 0.2f;
+            if (Input.GetKey(KeyCode.W))
+                _inputTailY += 0.2f;
+            if (Input.GetKey(KeyCode.S))
+                _inputTailY -= 0.2f;
+        }          
 
         _inputTailX = Mathf.Clamp(_inputTailX, -1, 1);
         _inputTailY = Mathf.Clamp(_inputTailY, -1, 1);
         _inputTail = new Vector3(_inputTailX, _inputTailY, 0);
+        //// 
+        //if (_inputHead == Vector3.zero)
+        //{
+        //    _inputTail = new Vector3(_inputTailX, _inputTailY, 0);
+        //}   
+        //else
+        //{ }
     }
 
 
