@@ -22,14 +22,14 @@ public class Game : MonoBehaviour
     }
 
     
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            CurrentWorm.Dead();
+    //void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.F))
+    //    {
+    //        CurrentWorm.Dead();
 
-            CurrentWorm = Instantiate(WormPrefab, SpawnPoint);
-        }
-    } 
+    //        CurrentWorm = Instantiate(WormPrefab, SpawnPoint);
+    //    }
+    //} 
 
 }
