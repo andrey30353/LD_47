@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
@@ -9,6 +10,11 @@ public class Game : MonoBehaviour
     public Snake CurrentWorm;
 
     public static Game Instance;
+
+    public int StrawberyCount;
+
+    public Button Pause;
+    public Image WinScreen;
 
     public void Awake()
     {

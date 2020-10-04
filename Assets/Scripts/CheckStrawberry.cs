@@ -10,19 +10,19 @@ public class CheckStrawberry : MonoBehaviour
     public int currentStrawberryAmount;
     public Image WinScreen;
     public Button Pause;
+       
 
-
-   void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Strawberry"))
         {
             currentStrawberryAmount++;
 
-            if (currentStrawberryAmount == strawberryAmountOnLevel)
+            if (currentStrawberryAmount == Game.Instance.StrawberyCount)
             {
                 Time.timeScale = 0f;
-                Pause.gameObject.SetActive(false);
-                WinScreen.gameObject.SetActive(true);
+                Game.Instance.Pause.gameObject.SetActive(false);
+                Game.Instance.WinScreen.gameObject.SetActive(true);
             }
 
         }
