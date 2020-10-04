@@ -45,7 +45,7 @@ public class SnakePart : MonoBehaviour
             if (cantMove.Type == ForceType.Down)
                 contactNorm = Vector3.down;
 
-            inWater = true;
+            inWater = cantMove.Water;
 
           // print(cantMove.Type);
         }

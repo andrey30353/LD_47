@@ -292,16 +292,16 @@ public class Snake : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (InWater)
-            timeInWater += Time.deltaTime;
+        //if (InWater)
+        //    timeInWater += Time.deltaTime;
 
-        if (timeInWater > 2f)
-        {
-            //Dead();
-            TimeBar.Instance.current = 0;
+        //if (timeInWater > 2f)
+        //{
+        //    //Dead();
+        //    TimeBar.Instance.current = 0;
 
-            return;
-        }
+        //    return;
+        //}
 
         if (isDead)
             DelayedDead();
