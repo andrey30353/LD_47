@@ -7,9 +7,16 @@ public class Game : MonoBehaviour
     public Transform SpawnPoint;
 
     public Snake CurrentWorm;
-      
 
-   /* void Update()
+    public static Game Instance;
+
+    public void Awake()
+    {
+        Instance = this;
+    }
+
+
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -17,7 +24,7 @@ public class Game : MonoBehaviour
 
             CurrentWorm = Instantiate(WormPrefab, SpawnPoint);
         }
-    } */
+    } 
     
 
 

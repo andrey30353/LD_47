@@ -33,7 +33,7 @@ public class Snake : MonoBehaviour
     float minDistance;
     float prevLength;
 
-    Vector3 _input;
+    public Vector3 _input;  
 
     // чем управляем сейчас
     bool useHead;
@@ -140,14 +140,7 @@ public class Snake : MonoBehaviour
                 var direction = (headPoint.PositionWorld - tailPoint.PositionWorld).normalized;
                 tailPoint.PositionWorld = tailPoint.PositionWorld + direction * Speed * Time.deltaTime;
             }
-        }
-
-        _input = Vector3.zero;
-
-        var horizontal = Input.GetAxis("Horizontal");
-        var vertical = Input.GetAxis("Vertical");
-
-        _input = new Vector3(horizontal, vertical, 0);
+        }       
 
         //print(headPoint.PositionWorld);
         //print(tailPoint.PositionWorld);
@@ -315,12 +308,11 @@ public class Snake : MonoBehaviour
             }
         }
     }
-
+        
     public void Dead()
     {
         mesh.material.color = Color.grey;
-        this.enabled = false;
-
+        
         foreach (var item in _parts)
         {
             /*var collider = item.GetComponent<SphereCollider>();
@@ -328,14 +320,19 @@ public class Snake : MonoBehaviour
             {
                 collider.isTrigger = true;
                 item.gameObject.AddComponent<CantMove>();
-            }   */
+            }   
+            }*/
 
-            var rb = item.GetComponent<Rigidbody>();
+            item.gameObject.layer = 0;
+
+            var rb = item.GetComponent<Rigidbody>();           
             if (rb != null)
             {
+                rb.isKinematic = true;
                 Destroy(rb);
             }
         }
+        this.enabled = false;
     }
 
 
