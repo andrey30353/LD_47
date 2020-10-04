@@ -12,6 +12,9 @@ public class StrawberryAnim : MonoBehaviour
 
     public bool IsEaten;
     private float eatProgress;
+
+    public SoundEffector soundEffector;
+
     /*
     public void Eat()
     {
@@ -56,6 +59,8 @@ public class StrawberryAnim : MonoBehaviour
             parts[curPart].SetActive(true);
 
             curPart++;
+
+            soundEffector.PlayCrawlSound();
         }
 
         if(curPart == parts.Length)

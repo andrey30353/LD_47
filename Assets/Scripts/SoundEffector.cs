@@ -6,6 +6,7 @@ public class SoundEffector : MonoBehaviour
 {
     public AudioSource audioSource;
     public AudioClip crawlSound;
+    public AudioClip eatSound;
 
 
     void Start()
@@ -17,4 +18,11 @@ public class SoundEffector : MonoBehaviour
     {
         audioSource.PlayOneShot(crawlSound);
     }
+
+     public void PlayEatSound()
+    {
+        audioSource.PlayOneShot(eatSound);
+    }
+
+
 }
