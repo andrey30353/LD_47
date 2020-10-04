@@ -11,25 +11,35 @@ public class Game : MonoBehaviour
 
     public static Game Instance;
 
+    public int currentStrawberryAmount;
     public int StrawberyCount;
 
     public Button Pause;
     public Image WinScreen;
+
+    public PostProcessControll postProcessControl;
 
     public void Awake()
     {
         Instance = this;
     }
 
-    
-    //void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.F))
-    //    {
-    //        CurrentWorm.Dead();
+    /*
+    void Update()
+    {
+        
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            CurrentWorm.Dead();
 
-    //        CurrentWorm = Instantiate(WormPrefab, SpawnPoint);
-    //    }
-    //} 
+            CurrentWorm = Instantiate(WormPrefab, SpawnPoint);
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+          //  postProcessControl.
+        }
+        
+    } */
 
 }

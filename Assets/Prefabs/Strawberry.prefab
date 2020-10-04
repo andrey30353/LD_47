@@ -58,7 +58,7 @@ MonoBehaviour:
   - {fileID: 4810765585642337981}
   - {fileID: 4723564014185605140}
   - {fileID: 914352552274623644}
-  EatTime: 0
+  EatTime: 1.5
   IsEaten: 0
 --- !u!54 &7029150054160658181
 Rigidbody:
