@@ -16,6 +16,12 @@ public class CheckStrawberry : MonoBehaviour
     {
         if (other.CompareTag("Strawberry"))
         {
+            var anim = other.GetComponent<StrawberryAnim>();
+            if(anim != null)
+            {
+                anim.Eat();
+            }
+
             currentStrawberryAmount++;
 
             if (currentStrawberryAmount == Game.Instance.StrawberyCount)

@@ -96,38 +96,8 @@ public class Snake : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {  
-        ProcessInput();
-/*
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            headPoint.ControlFirstLocal += Vector3.right * 0.1f;
-        }
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            headPoint.ControlFirstLocal += Vector3.left * 0.1f;            
-        }
-        
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            useHead = !useHead;
-        }
-*/
-
-        if (CurrentDistance > Length)
-        {
-            //print("CurrentDistance > Length");
-            //if (useHead)
-            //{
-                var direction1 = (midPoint.PositionWorld - headPoint.PositionWorld).normalized;
-                headPoint.PositionWorld = headPoint.PositionWorld + direction1 * Speed * Time.deltaTime;
-            //}
-            //else
-            //{
-                var direction2 = (midPoint.PositionWorld - tailPoint.PositionWorld).normalized;
-                tailPoint.PositionWorld = tailPoint.PositionWorld + direction2 * Speed * Time.deltaTime;
-            //}
-        }
+    {
+        ProcessInput(); 
 
         //print(headPoint.PositionWorld);
         //print(tailPoint.PositionWorld);
@@ -167,6 +137,8 @@ public class Snake : MonoBehaviour
 
         ApplyGravity();
 
+        CorrectLenght();
+
         UpdateMidPoint();
 
         CorrectControlPoints();
@@ -176,6 +148,18 @@ public class Snake : MonoBehaviour
         // постепенное увеличение гравитации чтобы в начале игры не провалится
         gravity += Time.deltaTime;
         gravity = Mathf.Clamp(gravity, 0, MaxGravity);
+    }
+
+    private void CorrectLenght()
+    {
+        if (CurrentDistance > Length)
+        {            
+            var direction1 = (midPoint.PositionWorld - headPoint.PositionWorld).normalized;
+            headPoint.PositionWorld = headPoint.PositionWorld + direction1 * Speed * Time.deltaTime;
+          
+            var direction2 = (midPoint.PositionWorld - tailPoint.PositionWorld).normalized;
+            tailPoint.PositionWorld = tailPoint.PositionWorld + direction2 * Speed * Time.deltaTime;            
+        }
     }
 
     private bool IsIncorrectSnake()
@@ -279,7 +263,7 @@ public class Snake : MonoBehaviour
         }
 
         // отменяем все, если длина увеличилась       
-        if (CurrentDistance > Length)
+        /*if (CurrentDistance > Length)
         {
             if (useHead)
             {
@@ -289,7 +273,7 @@ public class Snake : MonoBehaviour
             {
                 headPoint.PositionWorld = headPoint.PositionWorld - Vector3.down * gravity * Time.deltaTime;
             }
-        }
+        }*/
     }
 
     private bool isDead = false;
