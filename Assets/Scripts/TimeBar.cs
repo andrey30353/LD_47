@@ -58,8 +58,11 @@ public class TimeBar : MonoBehaviour
 
 		if (!isBeeped)
 		{ 
-			StartCoroutine(postProcessControl.Beep());
-			isBeeped = true;
+			if(postProcessControl != null)
+			{
+				StartCoroutine(postProcessControl.Beep());
+				isBeeped = true;
+			}			
 		}
 
 		if (current < 0)
@@ -79,8 +82,10 @@ public class TimeBar : MonoBehaviour
 	{
 		if (current <= 0)
 		{
-			StartCoroutine(postProcessControl.BigBeep());
-			
+			if (postProcessControl != null)
+			{
+				StartCoroutine(postProcessControl.BigBeep());
+			}
 
 			current = maxValue;
 
