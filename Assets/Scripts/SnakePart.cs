@@ -38,6 +38,14 @@ public class SnakePart : MonoBehaviour
     private void EvaluateCollision(Collision collision)
     {
         var contactNorm = Vector3.up;
+        var cantMove = collision.gameObject.GetComponent<CantMove>();
+        if(cantMove != null)
+        {
+            if (cantMove.Type == ForceType.Down)
+                contactNorm = Vector3.down;
+          // print(cantMove.Type);
+        }
+
         //print("EvaluateCollision = " + collision.collider.name);        
         /*for (int i = 0; i < collision.contactCount; i++)
         {

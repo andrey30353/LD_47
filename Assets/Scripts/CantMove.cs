@@ -1,10 +1,17 @@
 ﻿using UnityEngine;
 
+public enum ForceType
+{
+    Up, 
+    Down
+}
+
 public class CantMove : MonoBehaviour
 {  
     public Collider collider;
     Snake player;
 
+    public ForceType Type = ForceType.Up;
 
     //public Vector3 ColliderCenter => transform.TransformPoint(collider.center);
     //public Vector3 ColliderSize => transform.TransformPoint(collider.bounds.size);
