@@ -98,7 +98,7 @@ public class Snake : MonoBehaviour
     void Update()
     {  
         ProcessInput();
-
+/*
         if (Input.GetKeyDown(KeyCode.R))
         {
             headPoint.ControlFirstLocal += Vector3.right * 0.1f;
@@ -107,11 +107,12 @@ public class Snake : MonoBehaviour
         {
             headPoint.ControlFirstLocal += Vector3.left * 0.1f;            
         }
-
+        
         if (Input.GetKeyDown(KeyCode.Space))
         {
             useHead = !useHead;
         }
+*/
 
         if (CurrentDistance > Length)
         {
