@@ -853,8 +853,8 @@ MonoBehaviour:
   WormPrefab: {fileID: 3125661182283932236, guid: a876f8620e8acc94bbe3d985a882d83f, type: 3}
   SpawnPoint: {fileID: 694324553}
   CurrentWorm: {fileID: 347088803}
-  currentStrawberryAmount: 4
-  StrawberyCount: 0
+  currentStrawberryAmount: 0
+  StrawberyCount: 4
   Pause: {fileID: 538738318}
   WinScreen: {fileID: 563074416}
   postProcessControl: {fileID: 0}
