@@ -91,7 +91,9 @@ public class TimeBar : MonoBehaviour
 		{
 			if (postProcessControl != null)
 			{
-				StartCoroutine(postProcessControl.BigBeep());
+				postProcessControl.flash = true;
+				postProcessControl.flashBig = true;
+
 			}
 
 			current = maxValue;
