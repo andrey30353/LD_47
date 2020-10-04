@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UI : MonoBehaviour
 {
@@ -11,9 +12,26 @@ public class UI : MonoBehaviour
         Application.Quit();
     }
 
-    public void OpenScene()
+    public void OpenMainScene()
     {
         SceneManager.LoadScene(1);
     }
+
+    public void OpenMenuScene()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void Pause()
+    {
+        Time.timeScale = 0f;
+    }
+
+
+    public void Continue()
+    {
+        Time.timeScale = 1f;
+    }
+
 
 }
