@@ -235,10 +235,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3125661182283932236, guid: a876f8620e8acc94bbe3d985a882d83f, type: 3}
-      propertyPath: Speed
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 3125661182283932237, guid: a876f8620e8acc94bbe3d985a882d83f, type: 3}
       propertyPath: m_Name
       value: Snake New
