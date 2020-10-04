@@ -4974,6 +4974,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseImage
       objectReference: {fileID: 0}
+    - target: {fileID: 6374113387691983372, guid: 502bee37dca66f04cafd49570d382e93, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6374113387866022792, guid: 502bee37dca66f04cafd49570d382e93, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 

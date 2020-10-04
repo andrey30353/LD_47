@@ -1858,19 +1858,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4216960389729653082, guid: 2668c57e14578bf4abe72b341d86978d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -58.77
+      value: -145.1
       objectReference: {fileID: 0}
     - target: {fileID: 4216960389729653082, guid: 2668c57e14578bf4abe72b341d86978d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 74.66
+      value: 135.3
       objectReference: {fileID: 0}
     - target: {fileID: 4216960389729653082, guid: 2668c57e14578bf4abe72b341d86978d, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 117.53516
+      value: 290.27856
       objectReference: {fileID: 0}
     - target: {fileID: 4216960389729653082, guid: 2668c57e14578bf4abe72b341d86978d, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 149.31601
+      value: 270.55072
       objectReference: {fileID: 0}
     - target: {fileID: 4216960389729653082, guid: 2668c57e14578bf4abe72b341d86978d, type: 3}
       propertyPath: m_AnchorMin.x
@@ -5553,6 +5553,10 @@ PrefabInstance:
     - target: {fileID: 6374113387691983372, guid: 502bee37dca66f04cafd49570d382e93, type: 3}
       propertyPath: m_Name
       value: PauseImage
+      objectReference: {fileID: 0}
+    - target: {fileID: 6374113387691983372, guid: 502bee37dca66f04cafd49570d382e93, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6374113387866022792, guid: 502bee37dca66f04cafd49570d382e93, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
