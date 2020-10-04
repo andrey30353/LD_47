@@ -62,6 +62,7 @@ public class StrawberryAnim : MonoBehaviour
         {
             Game.Instance.currentStrawberryAmount++;
 
+            //print($"cur = { Game.Instance.currentStrawberryAmount} need = {Game.Instance.StrawberyCount}");
             if (Game.Instance.currentStrawberryAmount == Game.Instance.StrawberyCount)
             {
                 //Game.Instance.CurrentWorm.enabled = false;
@@ -70,6 +71,8 @@ public class StrawberryAnim : MonoBehaviour
                 Game.Instance.Pause.gameObject.SetActive(false);
                 Game.Instance.WinScreen.gameObject.SetActive(true);
             }
+
+            enabled = false;
         }
     }
 }
