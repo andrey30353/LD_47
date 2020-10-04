@@ -12,11 +12,6 @@ public class UI : MonoBehaviour
         Application.Quit();
     }
 
-    public void OpenMainScene()
-    {
-        SceneManager.LoadScene(1);
-    }
-
     public void OpenMenuScene()
     {
         SceneManager.LoadScene(0);
@@ -31,6 +26,21 @@ public class UI : MonoBehaviour
     public void Continue()
     {
         Time.timeScale = 1f;
+    }
+
+    public void OpenLevel1()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void OpenLevel2()
+    {
+        SceneManager.LoadScene(2);
+    }
+
+    public void OpenLevel3()
+    {
+        SceneManager.LoadScene(3);
     }
 
 
