@@ -292,8 +292,20 @@ public class Snake : MonoBehaviour
         }
     }
 
+    private bool isDead = false;
     public void Dead()
     {
+        isDead = true;        
+    }
+
+    private void FixedUpdate()
+    {
+        if (isDead)
+            DelayedDead();
+    }
+
+    private void DelayedDead()
+    {        
         mesh.material.color = Color.grey;
 
         foreach (var item in _parts)
