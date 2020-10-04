@@ -1584,6 +1584,10 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8090082993932693985, guid: 0590fe00fce472d43bfb53d1a5af12a8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 77a26216964c2ba418962b5c7aec18b5, type: 3}
     - target: {fileID: 8090082993932693999, guid: 0590fe00fce472d43bfb53d1a5af12a8, type: 3}
       propertyPath: m_Name
       value: Comic
@@ -1913,19 +1917,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4216960389729653082, guid: 2668c57e14578bf4abe72b341d86978d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -80.8
+      value: -58.77
       objectReference: {fileID: 0}
     - target: {fileID: 4216960389729653082, guid: 2668c57e14578bf4abe72b341d86978d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 34.5
+      value: 74.66
       objectReference: {fileID: 0}
     - target: {fileID: 4216960389729653082, guid: 2668c57e14578bf4abe72b341d86978d, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 149.7124
+      value: 117.53516
       objectReference: {fileID: 0}
     - target: {fileID: 4216960389729653082, guid: 2668c57e14578bf4abe72b341d86978d, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 52.9765
+      value: 149.31601
       objectReference: {fileID: 0}
     - target: {fileID: 4216960389729653082, guid: 2668c57e14578bf4abe72b341d86978d, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1974,6 +1978,14 @@ PrefabInstance:
     - target: {fileID: 4216960389729653083, guid: 2668c57e14578bf4abe72b341d86978d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
       value: PlayOneShot
+      objectReference: {fileID: 0}
+    - target: {fileID: 4216960389729653084, guid: 2668c57e14578bf4abe72b341d86978d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4216960389729653084, guid: 2668c57e14578bf4abe72b341d86978d, type: 3}
+      propertyPath: m_Color.a
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2668c57e14578bf4abe72b341d86978d, type: 3}
