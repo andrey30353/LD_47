@@ -11,6 +11,7 @@ public class PostProcessControll : MonoBehaviour
     private float currentValue = 0;
     public float needValue = 0.58f;
     public ColorGrading colorGradingLayer = null;
+    public SoundEffector soundEffector;
 
     void Start()
     {
@@ -43,33 +44,39 @@ public class PostProcessControll : MonoBehaviour
     public IEnumerator Beep()
     {
         //10
+        soundEffector.PlayBeepSound();
         yield return new WaitForSeconds(1f);
 
-        //9        
+        //9
+        soundEffector.PlayBeepSound();        
         colorGradingLayer.postExposure.value = needValue;
         yield return new WaitForSeconds(0.05f);
         colorGradingLayer.postExposure.value = exposureValueDef; 
         yield return new WaitForSeconds(1f - 0.05f);
 
         //8
+        soundEffector.PlayBeepSound();
         colorGradingLayer.postExposure.value = needValue;
         yield return new WaitForSeconds(0.05f);
         colorGradingLayer.postExposure.value = exposureValueDef;
         yield return new WaitForSeconds(1f - 0.05f);
 
         //7
+        soundEffector.PlayBeepSound();
         colorGradingLayer.postExposure.value = needValue;
         yield return new WaitForSeconds(0.05f);
         colorGradingLayer.postExposure.value = exposureValueDef;
         yield return new WaitForSeconds(1f - 0.05f);
 
         //6
+        soundEffector.PlayBeepSound();
         colorGradingLayer.postExposure.value = needValue;
         yield return new WaitForSeconds(0.05f);
         colorGradingLayer.postExposure.value = exposureValueDef;
         yield return new WaitForSeconds(1f - 0.05f);
 
         //5
+        soundEffector.PlayBeepSound();
         colorGradingLayer.postExposure.value = needValue;
         yield return new WaitForSeconds(0.05f);
         colorGradingLayer.postExposure.value = exposureValueDef;

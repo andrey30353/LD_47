@@ -3449,6 +3449,10 @@ PrefabInstance:
       propertyPath: bigBeepValue
       value: 1.58
       objectReference: {fileID: 0}
+    - target: {fileID: 2452562019166549329, guid: 5b4273b6f29085049bdbd236a385d7ed, type: 3}
+      propertyPath: soundEffector
+      value: 
+      objectReference: {fileID: 934649322}
     - target: {fileID: 9098510133388157831, guid: 5b4273b6f29085049bdbd236a385d7ed, type: 3}
       propertyPath: m_Name
       value: PostProcess
@@ -5962,6 +5966,10 @@ PrefabInstance:
       propertyPath: eatSound
       value: 
       objectReference: {fileID: 8300000, guid: 57f1f713dc7dbc240a1eb882ae9582c0, type: 3}
+    - target: {fileID: 5624580707613010951, guid: bcb23cd4334ee5049ac24b6154b596b4, type: 3}
+      propertyPath: beepSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 476d865dd89d6a947a532f86513a12e5, type: 3}
     - target: {fileID: 5624580707613011066, guid: bcb23cd4334ee5049ac24b6154b596b4, type: 3}
       propertyPath: m_Name
       value: AudioSource

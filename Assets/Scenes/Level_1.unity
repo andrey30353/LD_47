@@ -721,6 +721,10 @@ PrefabInstance:
       propertyPath: eatSound
       value: 
       objectReference: {fileID: 8300000, guid: 57f1f713dc7dbc240a1eb882ae9582c0, type: 3}
+    - target: {fileID: 5624580707613010951, guid: bcb23cd4334ee5049ac24b6154b596b4, type: 3}
+      propertyPath: beepSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 476d865dd89d6a947a532f86513a12e5, type: 3}
     - target: {fileID: 5624580707613011066, guid: bcb23cd4334ee5049ac24b6154b596b4, type: 3}
       propertyPath: m_Name
       value: AudioSource
@@ -1219,6 +1223,7 @@ MonoBehaviour:
   bigBeepValue: 1.58
   needValue: 0.58
   colorGradingLayer: {fileID: 0}
+  soundEffector: {fileID: 128445235}
 --- !u!1001 &477791802
 PrefabInstance:
   m_ObjectHideFlags: 0
