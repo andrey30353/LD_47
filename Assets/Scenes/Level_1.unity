@@ -304,6 +304,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &128445235 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5624580707613010951, guid: bcb23cd4334ee5049ac24b6154b596b4, type: 3}
+  m_PrefabInstance: {fileID: 210108787}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf4f99332a711484490f095a147b5cce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &140655406
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -706,6 +717,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5624580707613010951, guid: bcb23cd4334ee5049ac24b6154b596b4, type: 3}
+      propertyPath: eatSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 57f1f713dc7dbc240a1eb882ae9582c0, type: 3}
     - target: {fileID: 5624580707613011066, guid: bcb23cd4334ee5049ac24b6154b596b4, type: 3}
       propertyPath: m_Name
       value: AudioSource
@@ -5245,6 +5260,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1520714027}
     m_Modifications:
+    - target: {fileID: 2059469352, guid: 8da73357b1caf494b86c9346decbd7fa, type: 3}
+      propertyPath: soundEffector
+      value: 
+      objectReference: {fileID: 128445235}
     - target: {fileID: 605997373547081171, guid: 8da73357b1caf494b86c9346decbd7fa, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.908
@@ -5352,7 +5371,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2259780931704424260, guid: 4f2f985dbc5a32e49bd5c35d57a2c0a4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -215.1
+      value: -205
       objectReference: {fileID: 0}
     - target: {fileID: 2259780931704424260, guid: 4f2f985dbc5a32e49bd5c35d57a2c0a4, type: 3}
       propertyPath: m_SizeDelta.x
@@ -5385,10 +5404,6 @@ PrefabInstance:
     - target: {fileID: 2259780931704424260, guid: 4f2f985dbc5a32e49bd5c35d57a2c0a4, type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2259780931704424261, guid: 4f2f985dbc5a32e49bd5c35d57a2c0a4, type: 3}
-      propertyPath: m_Color.a
-      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 2259780931704424267, guid: 4f2f985dbc5a32e49bd5c35d57a2c0a4, type: 3}
       propertyPath: m_Name
