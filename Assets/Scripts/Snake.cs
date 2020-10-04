@@ -107,7 +107,8 @@ public class Snake : MonoBehaviour
                 tailPoint.PositionWorld = tailPoint.PositionWorld + Vector3.up * Speed * Time.deltaTime;
             }
         }*/
-               
+
+        ProcessInput();
 
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -335,6 +336,56 @@ public class Snake : MonoBehaviour
         this.enabled = false;
     }
 
+    float _inputX;
+    float _inputY;
+    private void ProcessInput()
+    {
+        
+        _input = Vector3.zero;
+
+        var horizontal = Input.GetAxis("Horizontal");
+        var vertical = Input.GetAxis("Vertical");
+
+        _input = new Vector3(horizontal, vertical, 0);
+       
+       /*
+        if (_inputX > 0.1f)
+            _inputX -= 0.05f;
+        if (_inputX < -0.1f)
+            _inputX += 0.05f;
+
+        if (_inputY > 0.1f)
+            _inputY -= 0.05f;
+        if (_inputY < -0.1f)
+            _inputY += 0.05f;
+
+        print(_inputX);
+
+        if (_inputX > -0.1f || _inputX < 0.1f)
+            _inputX = 0;
+
+        if (_inputY > -0.1f || _inputY < 0.1f)
+            _inputY = 0;
+
+        //_input = Vector3.zero;
+
+        if (Input.GetKey(KeyCode.A))
+            _inputX -= 0.2f;
+        if (Input.GetKey(KeyCode.D))
+            _inputX += 0.2f;
+
+        if (Input.GetKey(KeyCode.W))
+            _inputY += 0.2f;
+        if (Input.GetKey(KeyCode.S))
+            _inputY -= 0.2f;
+
+        _inputX = Mathf.Clamp(_inputX, -1, 1);
+        _inputY = Mathf.Clamp(_inputY, -1, 1);
+        
+        _input = new Vector3(_inputX, _inputY, 0);
+        */
+    }
+
 
     private void OnDrawGizmos()
     {
@@ -431,5 +482,7 @@ public class Snake : MonoBehaviour
             print("Collide - OnTriggerExit");
         }       
     }*/
+
+
 
 }

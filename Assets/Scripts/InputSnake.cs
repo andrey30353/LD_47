@@ -16,30 +16,32 @@ public class InputSnake : MonoBehaviour
     {
         snake =  GetComponent<Snake>();
     }
-
+    
     // Update is called once per frame
     void Update()
     {
 
         snake = Game.Instance.CurrentWorm;
-
+        /*
         _input = Vector3.zero;
 
         var horizontal = Input.GetAxis("Horizontal");
         var vertical = Input.GetAxis("Vertical");
 
         _input = new Vector3(horizontal, vertical, 0);
-       
-        /*
-        if(_inputX > 0)        
+       */
+        
+        if(_inputX > 0.1f)        
             _inputX -= 0.05f;        
-        if (_inputX < 0)        
+        if (_inputX < -0.1f)        
             _inputX += 0.05f;
 
-        if (_inputY > 0)
+        if (_inputY > 0.1f)
             _inputY -= 0.05f;
-        if (_inputY < 0)
+        if (_inputY < -0.1f)
             _inputY += 0.05f;
+
+        print(_inputX);
 
         if (_inputX > -0.1f || _inputX < 0.1f)
             _inputX = 0;
@@ -47,7 +49,7 @@ public class InputSnake : MonoBehaviour
         if (_inputY > -0.1f || _inputY < 0.1f)
             _inputY = 0;
 
-        _input = Vector3.zero;
+        //_input = Vector3.zero;
 
         if (Input.GetKey(KeyCode.A))
             _inputX -= 0.2f;
@@ -63,8 +65,8 @@ public class InputSnake : MonoBehaviour
         _inputY = Mathf.Clamp(_inputY, -1, 1);
 
         _input = new Vector3(_inputX, _inputY, 0);
-        */
-        print(_input);
+        
+        //print(_input);
         snake._input = _input;
     }
 }
