@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +9,6 @@ public class TimeBar : MonoBehaviour
 	Color color = Color.red;		
 	public Slider slider;				
     public float current;
-
 
     public float timeAmount = 15f;
 	
@@ -26,7 +24,6 @@ public class TimeBar : MonoBehaviour
 	public bool IsActive => comic.activeSelf == false;
 
 	public PostProcessControll postProcessControl;
-<<<<<<< Updated upstream
 	
 	public static TimeBar Instance;
 
@@ -34,10 +31,6 @@ public class TimeBar : MonoBehaviour
 	{
 		Instance = this;
 	}
-=======
-	private bool corStarted = false;
-
->>>>>>> Stashed changes
 
 	void Start()
 	{
@@ -74,7 +67,6 @@ public class TimeBar : MonoBehaviour
 		{ 
 			if(postProcessControl != null)
 			{
-				//print("test");
 				StartCoroutine(postProcessControl.Beep());
 				isBeeped = true;
 			}			
@@ -99,8 +91,7 @@ public class TimeBar : MonoBehaviour
 		{
 			if (postProcessControl != null)
 			{
-				postProcessControl.flash = true;
-				postProcessControl.flashBig = true;
+				StartCoroutine(postProcessControl.BigBeep());
 			}
 
 			current = maxValue;
@@ -110,5 +101,4 @@ public class TimeBar : MonoBehaviour
             CurrentWorm = Instantiate(WormPrefab, SpawnPoint);
 		}
 	}
-
 }
