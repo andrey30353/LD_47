@@ -74,19 +74,19 @@ public class SnakePart : MonoBehaviour
             case SnakePartType.Head:
                 snake.HeadIsCollided = value;
                 snake.headContactNormal = normal; 
-                Debug.DrawLine(snake.headPoint.PositionWorld, snake.midPoint.PositionWorld + normal, Color.red, 1f);
+                //Debug.DrawLine(snake.headPoint.PositionWorld, snake.midPoint.PositionWorld + normal, Color.red, 1f);
                 break;
 
             case SnakePartType.Mid:
                 snake.MidIsCollided = value;
                 snake.midContactNormal = normal;
-                Debug.DrawLine(snake.midPoint.PositionWorld, snake.midPoint.PositionWorld + normal, Color.red, 1f);
+                //Debug.DrawLine(snake.midPoint.PositionWorld, snake.midPoint.PositionWorld + normal, Color.red, 1f);
                 break;
 
             case SnakePartType.Tail:
                 snake.TailIsCollided = value;
                 snake.tailContactNormal = normal;
-                Debug.DrawLine(snake.tailPoint.PositionWorld, snake.midPoint.PositionWorld + normal, Color.red, 1f);
+                //Debug.DrawLine(snake.tailPoint.PositionWorld, snake.midPoint.PositionWorld + normal, Color.red, 1f);
                 break;
 
             default:

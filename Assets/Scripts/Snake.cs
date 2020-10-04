@@ -33,7 +33,7 @@ public class Snake : MonoBehaviour
     float minDistance;
     float prevLength;
 
-    Vector3 _input;
+    public Vector3 _input;  
 
     // чем управляем сейчас
     bool useHead;
@@ -107,7 +107,8 @@ public class Snake : MonoBehaviour
                 tailPoint.PositionWorld = tailPoint.PositionWorld + Vector3.up * Speed * Time.deltaTime;
             }
         }*/
-               
+
+        ProcessInput();
 
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -140,14 +141,7 @@ public class Snake : MonoBehaviour
                 var direction = (headPoint.PositionWorld - tailPoint.PositionWorld).normalized;
                 tailPoint.PositionWorld = tailPoint.PositionWorld + direction * Speed * Time.deltaTime;
             }
-        }
-
-        _input = Vector3.zero;
-
-        var horizontal = Input.GetAxis("Horizontal");
-        var vertical = Input.GetAxis("Vertical");
-
-        _input = new Vector3(horizontal, vertical, 0);
+        }       
 
         //print(headPoint.PositionWorld);
         //print(tailPoint.PositionWorld);
@@ -315,27 +309,81 @@ public class Snake : MonoBehaviour
             }
         }
     }
-
+        
     public void Dead()
     {
         mesh.material.color = Color.grey;
-        this.enabled = false;
-
+        
         foreach (var item in _parts)
         {
-            var collider = item.GetComponent<SphereCollider>();
+            /*var collider = item.GetComponent<SphereCollider>();
             if(collider != null)
             {
                 collider.isTrigger = true;
                 item.gameObject.AddComponent<CantMove>();
-            }
+            }   
+            }*/
 
-            var rb = item.GetComponent<Rigidbody>();
+            item.gameObject.layer = 0;
+
+            var rb = item.GetComponent<Rigidbody>();           
             if (rb != null)
             {
+                rb.isKinematic = true;
                 Destroy(rb);
             }
         }
+        this.enabled = false;
+    }
+
+    float _inputX;
+    float _inputY;
+    private void ProcessInput()
+    {
+        
+        _input = Vector3.zero;
+
+        var horizontal = Input.GetAxis("Horizontal");
+        var vertical = Input.GetAxis("Vertical");
+
+        _input = new Vector3(horizontal, vertical, 0);
+       
+       /*
+        if (_inputX > 0.1f)
+            _inputX -= 0.05f;
+        if (_inputX < -0.1f)
+            _inputX += 0.05f;
+
+        if (_inputY > 0.1f)
+            _inputY -= 0.05f;
+        if (_inputY < -0.1f)
+            _inputY += 0.05f;
+
+        print(_inputX);
+
+        if (_inputX > -0.1f || _inputX < 0.1f)
+            _inputX = 0;
+
+        if (_inputY > -0.1f || _inputY < 0.1f)
+            _inputY = 0;
+
+        //_input = Vector3.zero;
+
+        if (Input.GetKey(KeyCode.A))
+            _inputX -= 0.2f;
+        if (Input.GetKey(KeyCode.D))
+            _inputX += 0.2f;
+
+        if (Input.GetKey(KeyCode.W))
+            _inputY += 0.2f;
+        if (Input.GetKey(KeyCode.S))
+            _inputY -= 0.2f;
+
+        _inputX = Mathf.Clamp(_inputX, -1, 1);
+        _inputY = Mathf.Clamp(_inputY, -1, 1);
+        
+        _input = new Vector3(_inputX, _inputY, 0);
+        */
     }
 
 
@@ -434,5 +482,7 @@ public class Snake : MonoBehaviour
             print("Collide - OnTriggerExit");
         }       
     }*/
+
+
 
 }
