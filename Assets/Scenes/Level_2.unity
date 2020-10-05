@@ -1436,6 +1436,10 @@ MonoBehaviour:
   needValue: 0.58
   colorGradingLayer: {fileID: 0}
   soundEffector: {fileID: 1650652552}
+  flash: 0
+  flashBig: 0
+  flashSpeed: 2
+  flashBigSpeed: 2
 --- !u!1001 &477791802
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2017,6 +2021,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collider: {fileID: 0}
   Type: 0
+  Water: 0
 --- !u!1001 &684235629
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2761,6 +2766,10 @@ PrefabInstance:
       propertyPath: postProcessControl
       value: 
       objectReference: {fileID: 476186106}
+    - target: {fileID: 6676047157017125874, guid: ba5d57ede080992448e7402afdb6ea6a, type: 3}
+      propertyPath: timeAmount
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 6676047157017125887, guid: ba5d57ede080992448e7402afdb6ea6a, type: 3}
       propertyPath: m_Name
       value: TimeBar

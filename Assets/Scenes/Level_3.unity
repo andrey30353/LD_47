@@ -2465,6 +2465,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collider: {fileID: 0}
   Type: 0
+  Water: 0
 --- !u!1001 &684235629
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5484,7 +5485,7 @@ PrefabInstance:
       objectReference: {fileID: 694324553}
     - target: {fileID: 6676047157017125874, guid: ba5d57ede080992448e7402afdb6ea6a, type: 3}
       propertyPath: timeAmount
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6676047157017125874, guid: ba5d57ede080992448e7402afdb6ea6a, type: 3}
       propertyPath: postProcessControl
