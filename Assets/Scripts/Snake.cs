@@ -35,10 +35,7 @@ public class Snake : MonoBehaviour
 
     public Vector3 _inputHead;
     public Vector3 _inputTail;
-
-    // чем управляем сейчас
-    bool useHead;
-
+   
     // куда смотрим - через координаты
     bool rightView;
 
@@ -81,8 +78,7 @@ public class Snake : MonoBehaviour
     }
 
     void Start()
-    {
-        useHead = true;
+    {        
         rightView = true;
 
         math = Curve.GetComponent<BGCcMath>();
@@ -100,9 +96,7 @@ public class Snake : MonoBehaviour
     float timeInWater = 0f;
     // Update is called once per frame
     void Update()
-    {
-       
-             
+    {      
         ProcessInput(); 
 
         //print(headPoint.PositionWorld);
@@ -125,10 +119,8 @@ public class Snake : MonoBehaviour
             }
 
             if (MidIsCollided)
-            {
-                if (useHead)
-                    tailPoint.PositionWorld = tailPoint.PositionWorld + Vector3.up * Speed * 0.5f * Time.deltaTime;
-                else
+            {              
+                    tailPoint.PositionWorld = tailPoint.PositionWorld + Vector3.up * Speed * 0.5f * Time.deltaTime;              
                     headPoint.PositionWorld = headPoint.PositionWorld + Vector3.up * Speed * 0.5f * Time.deltaTime;
             }
         }
@@ -178,27 +170,16 @@ public class Snake : MonoBehaviour
     }
 
     private void UpdatePosition()
-    {
-        //if (useHead)
-        //{
-            headPoint.PositionWorld = headPoint.PositionWorld + _inputHead * Speed * Time.deltaTime;
-        //}
-        //else
-        //{
-            tailPoint.PositionWorld = tailPoint.PositionWorld + _inputTail * Speed * Time.deltaTime;
-        //}
+    {        
+            headPoint.PositionWorld = headPoint.PositionWorld + _inputHead * Speed * Time.deltaTime;        
+            tailPoint.PositionWorld = tailPoint.PositionWorld + _inputTail * Speed * Time.deltaTime;       
     }
 
     private void RevertPosition()
-    {
-        //if (useHead)
-        //{
-            headPoint.PositionWorld = headPoint.PositionWorld - _inputHead * Speed * Time.deltaTime;
-        //}
-        //else
-        //{
+    {        
+            headPoint.PositionWorld = headPoint.PositionWorld - _inputHead * Speed * Time.deltaTime;        
             tailPoint.PositionWorld = tailPoint.PositionWorld - _inputTail * Speed * Time.deltaTime;
-        //}
+        
     }
 
     private void UpdateBones()
@@ -252,21 +233,17 @@ public class Snake : MonoBehaviour
             tailPoint.PositionWorld = tailPoint.PositionWorld + Vector3.down * gravity * Time.deltaTime;
             return;
         }
-
-        if (useHead)
+               
+        if (!TailIsCollided)
         {
-            if (TailIsCollided)
-                return;
-
             tailPoint.PositionWorld = tailPoint.PositionWorld + Vector3.down * 1 * Time.deltaTime;
         }
-        else
-        {
-            if (HeadIsCollided)
-                return;
 
+        if (!HeadIsCollided)
+        {
             headPoint.PositionWorld = headPoint.PositionWorld + Vector3.down * 1 * Time.deltaTime;
         }
+        
 
         // отменяем все, если длина увеличилась       
         /*if (CurrentDistance > Length)
@@ -346,8 +323,7 @@ public class Snake : MonoBehaviour
         _inputTail = Vector3.zero;
         //print(_inputHead);
         if(_inputHead == Vector3.zero)
-        {
-            print("_inputHead == Vector3.zero");
+        {           
             var horizontal1 = Input.GetAxis("Horizontal1");
             var vertical1 = Input.GetAxis("Vertical1");
             _inputTail = new Vector3(horizontal1, vertical1, 0).normalized;
