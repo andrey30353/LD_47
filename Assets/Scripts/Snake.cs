@@ -31,9 +31,7 @@ public class Snake : MonoBehaviour
     public BGCurvePointI tailPoint;
 
     float minDistance;
-    float prevLength;
-
-    public Vector3 _input;
+    float prevLength;  
 
     public Vector3 _inputHead;
     public Vector3 _inputTail;
@@ -338,79 +336,22 @@ public class Snake : MonoBehaviour
 
     private void ProcessInput()
     {
-        /* 
-         _input = Vector3.zero;
-
+        // голова
+        _inputHead = Vector3.zero;
          var horizontal = Input.GetAxis("Horizontal");
          var vertical = Input.GetAxis("Vertical");
+        _inputHead = new Vector3(horizontal, vertical, 0).normalized;
 
-         _input = new Vector3(horizontal, vertical, 0);*/
-
-        // голова
-        if (_inputHeadX > 0.1f)
-            _inputHeadX -= 0.05f;
-        if (_inputHeadX < -0.1f)
-            _inputHeadX += 0.05f;
-
-        if (_inputHeadY > 0.1f)
-            _inputHeadY -= 0.05f;
-        if (_inputHeadY < -0.1f)
-            _inputHeadY += 0.05f;
-
-        if (_inputHeadX > -0.1f && _inputHeadX < 0.1f)
-            _inputHeadX = 0;
-
-        if (_inputHeadY > -0.1f && _inputHeadY < 0.1f)
-            _inputHeadY = 0;
-
-
-        if (Input.GetKey(KeyCode.LeftArrow))
-            _inputHeadX -= 0.2f;
-        if (Input.GetKey(KeyCode.RightArrow))
-            _inputHeadX += 0.2f;
-
-        if (Input.GetKey(KeyCode.UpArrow))
-            _inputHeadY += 0.2f;
-        if (Input.GetKey(KeyCode.DownArrow))
-            _inputHeadY -= 0.2f;
-
-        _inputHeadX = Mathf.Clamp(_inputHeadX, -1, 1);
-        _inputHeadY = Mathf.Clamp(_inputHeadY, -1, 1);
-        _inputHead = new Vector3(_inputHeadX, _inputHeadY, 0);
-        
         //  хвост
-        if (_inputTailX > 0.1f)
-            _inputTailX -= 0.05f;
-        if (_inputTailX < -0.1f)
-            _inputTailX += 0.05f;
-
-        if (_inputTailY > 0.1f)
-            _inputTailY -= 0.05f;
-        if (_inputTailY < -0.1f)
-            _inputTailY += 0.05f;
-
-        if (_inputTailX > -0.1f && _inputTailX < 0.1f)
-            _inputTailX = 0;
-
-        if (_inputTailY > -0.1f && _inputTailY < 0.1f)
-            _inputTailY = 0;
-
-        if (_inputHead == Vector3.zero)
+        _inputTail = Vector3.zero;
+        //print(_inputHead);
+        if(_inputHead == Vector3.zero)
         {
-            if (Input.GetKey(KeyCode.A))
-                _inputTailX -= 0.2f;
-            if (Input.GetKey(KeyCode.D))
-                _inputTailX += 0.2f;
-
-            if (Input.GetKey(KeyCode.W))
-                _inputTailY += 0.2f;
-            if (Input.GetKey(KeyCode.S))
-                _inputTailY -= 0.2f;
+            print("_inputHead == Vector3.zero");
+            var horizontal1 = Input.GetAxis("Horizontal1");
+            var vertical1 = Input.GetAxis("Vertical1");
+            _inputTail = new Vector3(horizontal1, vertical1, 0).normalized;
         }          
-
-        _inputTailX = Mathf.Clamp(_inputTailX, -1, 1);
-        _inputTailY = Mathf.Clamp(_inputTailY, -1, 1);
-        _inputTail = new Vector3(_inputTailX, _inputTailY, 0);        
     }
 
 

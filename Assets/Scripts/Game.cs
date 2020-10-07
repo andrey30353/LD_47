@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Game : MonoBehaviour
@@ -28,22 +29,23 @@ public class Game : MonoBehaviour
 
    
 
-    /*
+    
     void Update()
     {
         
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            CurrentWorm.Dead();
+        //if (Input.GetKeyDown(KeyCode.F))
+        //{
+        //    CurrentWorm.Dead();
 
-            CurrentWorm = Instantiate(WormPrefab, SpawnPoint);
-        }
+        //    CurrentWorm = Instantiate(WormPrefab, SpawnPoint);
+        //}
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-          //  postProcessControl.
+            var currentScene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(currentScene.buildIndex);
         }
         
-    } */
+    } 
 
 }

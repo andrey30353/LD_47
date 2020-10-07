@@ -67,6 +67,6 @@ public class InputSnake : MonoBehaviour
         _input = new Vector3(_inputX, _inputY, 0);
         
         //print(_input);
-        snake._input = _input;
+       // snake._input = _input;
     }
 }
