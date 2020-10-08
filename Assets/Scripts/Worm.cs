@@ -94,10 +94,8 @@ public class Worm : MonoBehaviour
     void Update()
     {
         ProcessInput();
-
-        //print(headPoint.PositionWorld);
-        //print(tailPoint.PositionWorld);
-        //UpdatePosition();
+      
+        UpdatePosition();
 
         // отменяем все, если длина увеличилась       
         //if (IsIncorrectSnake())
@@ -147,7 +145,7 @@ public class Worm : MonoBehaviour
 
     private void FixedUpdate()
     {
-        UpdatePosition();
+        //UpdatePosition();
 
         //if (InWater)
         //    timeInWater += Time.deltaTime;
@@ -188,236 +186,179 @@ public class Worm : MonoBehaviour
     float diag = 1.414214f;
     private void UpdatePosition()
     {
-        var cp = HeadCollider.transform.position - HeadCollider.center;
+        if (_inputHead != Vector3.zero)
+        {
+            var nextPositionHead = HeadCollider.transform.position - HeadCollider.center + _inputHead * Speed * Time.deltaTime;
+            var correctedInputHead = CorrectInput(nextPositionHead, _inputHead);
+            var nextHeadPosition = headPoint.PositionWorld + correctedInputHead * Speed * Time.deltaTime;
+            headPoint.PositionWorld = nextHeadPosition;
+        }
 
-        //var np = cp + _inputHead * Speed * Time.deltaTime;
+
+        if (_inputTail != Vector3.zero)
+        {
+            var nextPositionTail = TailCollider.transform.position - TailCollider.center + _inputTail * Speed * Time.deltaTime;
+            var correctedInputTail = CorrectInput(nextPositionTail, _inputTail);
+            var nextTailPosition = tailPoint.PositionWorld + correctedInputTail * Speed * Time.deltaTime;
+            tailPoint.PositionWorld = nextTailPosition;
+        }
+    }
+
+    private Vector3 CorrectInput(Vector3 nextPosition, Vector3 input)
+    {
+        var result = input;
+
+        if (result == Vector3.zero)
+            return result;
+
+        //var np = cp + result * Speed * Time.deltaTime;
         ////HeadCollider
         //Collider[] colliderResult = new Collider[4];
         int layerMask = 1 << 8;
-        //var currentColliders = Physics.OverlapSphereNonAlloc(cp, HeadCollider.radius, colliderResult, layerMask);
-        //var nextColliders = Physics.OverlapSphereNonAlloc(np, HeadCollider.radius, colliderResult, layerMask);
-        //print(nextColliders  + " " + nextColliders) ;
-        //if(/*nextColliders > 0*/ nextColliders > currentColliders)
-        //{
-        //    //colliderResult[0].bounds.
-        //    nextHeadPosition = headPoint.PositionWorld /*- _inputHead * Speed * Time.deltaTime * 0.1f*/; 
-        //}
-        //if (_inputHead.x > 0 && _inputHead.y == 0)
-        //{
-        //    var rayRight = new Ray(cp, Vector3.right);
-        //    if (Physics.Raycast(rayRight, HeadCollider.radius, layerMask))
-        //    {    
-        //        var rayRighUp = new Ray(cp, Vector3.right + Vector3.up);
-        //        if (Physics.Raycast(rayRighUp, HeadCollider.radius * 1.4f, layerMask))
-        //        {
-        //            _inputHead.x = 0;
-        //            //if (_inputHead.y > 0)
-        //            //    _inputHead.y = 0;
-        //            //if (_inputHead.x > 0)
-        //            //    _inputHead.x = 0;
-        //        }
-        //        else
-        //        {
-        //            _inputHead.x = _inputHead.x * 0.5f;
-        //            _inputHead.y = 1;
-        //        }
 
-
-        //    }
-        //    /*
-        //    if(_inputHead.y > 0)
-        //    {
-        //        var rayUp = new Ray(cp, Vector3.up);
-        //        if (Physics.Raycast(rayUp, HeadCollider.radius, layerMask))
-        //        {                   
-        //           _inputHead.y = 0;
-        //        }
-        //    }*/
-
-        //  /*
-
-        //    var rayRighDown = new Ray(cp, Vector3.right + Vector3.down);
-        //    if (Physics.Raycast(rayRighDown, HeadCollider.radius * 1.4f, layerMask))
-        //    {
-        //        if (_inputHead.y < 0)
-        //            _inputHead.y = 0;
-        //        if (_inputHead.x > 0)
-        //            _inputHead.x = 0;
-        //    }           
-        //    */
-        //}
-
-
-        var rayRight = new Ray(cp, Vector3.right);
-        Debug.DrawLine(cp, cp + Vector3.right * HeadCollider.radius, Color.red);
+        var rayRight = new Ray(nextPosition, Vector3.right);
+        Debug.DrawLine(nextPosition, nextPosition + Vector3.right * HeadCollider.radius, Color.red);
         bool right = Physics.Raycast(rayRight, HeadCollider.radius, layerMask);
         if (right)
         {
-            Debug.DrawLine(cp, cp + Vector3.right * HeadCollider.radius, Color.blue);
-            if (_inputHead.x > 0)
-                _inputHead.x = 0;
+            Debug.DrawLine(nextPosition, nextPosition + Vector3.right * HeadCollider.radius, Color.blue);
+            if (result.x > 0)
+                result.x = 0;
         }
 
-        var rayLeft = new Ray(cp, Vector3.left);
-        Debug.DrawLine(cp, cp + Vector3.left * HeadCollider.radius, Color.red);
+        var rayLeft = new Ray(nextPosition, Vector3.left);
+        Debug.DrawLine(nextPosition, nextPosition + Vector3.left * HeadCollider.radius, Color.red);
         bool left = Physics.Raycast(rayLeft, HeadCollider.radius, layerMask);
         if (left)
         {
-            Debug.DrawLine(cp, cp + Vector3.left * HeadCollider.radius, Color.blue);
-            if (_inputHead.x < 0)
-                _inputHead.x = 0;
+            Debug.DrawLine(nextPosition, nextPosition + Vector3.left * HeadCollider.radius, Color.blue);
+            if (result.x < 0)
+                result.x = 0;
         }
 
-        var rayUp = new Ray(cp, Vector3.up);
-        Debug.DrawLine(cp, cp + Vector3.up * HeadCollider.radius, Color.red);
+        var rayUp = new Ray(nextPosition, Vector3.up);
+        Debug.DrawLine(nextPosition, nextPosition + Vector3.up * HeadCollider.radius, Color.red);
         bool up = Physics.Raycast(rayUp, HeadCollider.radius, layerMask);
         if (up)
         {
-            Debug.DrawLine(cp, cp + Vector3.up * HeadCollider.radius, Color.blue);
-            if (_inputHead.y > 0)
-                _inputHead.y = 0;
+            Debug.DrawLine(nextPosition, nextPosition + Vector3.up * HeadCollider.radius, Color.blue);
+            if (result.y > 0)
+                result.y = 0;
         }
 
-        var rayDown = new Ray(cp, Vector3.down);
-        Debug.DrawLine(cp, cp + Vector3.down * HeadCollider.radius, Color.red);
+        var rayDown = new Ray(nextPosition, Vector3.down);
+        Debug.DrawLine(nextPosition, nextPosition + Vector3.down * HeadCollider.radius, Color.red);
         bool down = Physics.Raycast(rayDown, HeadCollider.radius, layerMask);
         if (down)
         {
-            Debug.DrawLine(cp, cp + Vector3.down * HeadCollider.radius, Color.blue);
-            if (_inputHead.y < 0)
-                _inputHead.y = 0;
+            Debug.DrawLine(nextPosition, nextPosition + Vector3.down * HeadCollider.radius, Color.blue);
+            if (result.y < 0)
+                result.y = 0;
         }
 
-        var rayRighUp = new Ray(cp, Vector3.up + Vector3.right);
-        Debug.DrawLine(cp, cp + (Vector3.up + Vector3.right).normalized * HeadCollider.radius, Color.red);
+        var rayRighUp = new Ray(nextPosition, Vector3.up + Vector3.right);
+        Debug.DrawLine(nextPosition, nextPosition + (Vector3.up + Vector3.right).normalized * HeadCollider.radius, Color.red);
         if (Physics.Raycast(rayRighUp, HeadCollider.radius, layerMask))
         {
-            Debug.DrawLine(cp, cp + (Vector3.up + Vector3.right).normalized * HeadCollider.radius, Color.blue);
+            Debug.DrawLine(nextPosition, nextPosition + (Vector3.up + Vector3.right).normalized * HeadCollider.radius, Color.blue);
 
-            if (!right && _inputHead.x > 0 && _inputHead.y == 0)
+            if (!right && result.x > 0 && result.y == 0)
             {
-                _inputHead.y = _inputHead.x * -0.5f;
-                _inputHead.x *= 0.5f;
+                result.y = input.x * -0.5f;
+                result.x *= 0.5f;
             }
-            else if (!up && _inputHead.y > 0 && _inputHead.x == 0)
+            else if (!up && result.y > 0 && result.x == 0)
             {
-                _inputHead.x = _inputHead.y * -0.5f;
-                _inputHead.y *= 0.5f;
+                result.x = result.y * -0.5f;
+                result.y *= 0.5f;
             }
             else
             {
-                if (_inputHead.y > 0)
-                    _inputHead.y = 0;
-                if (_inputHead.x > 0)
-                    _inputHead.x = 0;
-            }          
+                if (result.y > 0)
+                    result.y = 0;
+                if (result.x > 0)
+                    result.x = 0;
+            }
         }
 
-        var rayRightDown = new Ray(cp, Vector3.down + Vector3.right);
-        Debug.DrawLine(cp, cp + (Vector3.down + Vector3.right).normalized * HeadCollider.radius, Color.red);
+        var rayRightDown = new Ray(nextPosition, Vector3.down + Vector3.right);
+        Debug.DrawLine(nextPosition, nextPosition + (Vector3.down + Vector3.right).normalized * HeadCollider.radius, Color.red);
         if (Physics.Raycast(rayRightDown, HeadCollider.radius, layerMask))
         {
-            Debug.DrawLine(cp, cp + (Vector3.down + Vector3.right).normalized * HeadCollider.radius, Color.blue);
-            
-            if (!right && _inputHead.x > 0 && _inputHead.y == 0) 
+            Debug.DrawLine(nextPosition, nextPosition + (Vector3.down + Vector3.right).normalized * HeadCollider.radius, Color.blue);
+
+            if (!right && result.x > 0 && result.y == 0)
             {
-                _inputHead.y = _inputHead.x * 0.5f;
-                _inputHead.x *= 0.5f;
+                result.y = result.x * 0.5f;
+                result.x *= 0.5f;
             }
-            else if(!down && _inputHead.y < 0 && _inputHead.x == 0)
-            {                
-                _inputHead.x = _inputHead.y * 0.5f;
-                _inputHead.y *= 0.5f;
+            else if (!down && result.y < 0 && result.x == 0)
+            {
+                result.x = result.y * 0.5f;
+                result.y *= 0.5f;
             }
             else
             {
-                if (_inputHead.x > 0)
-                    _inputHead.x = 0;
-                if (_inputHead.y < 0)
-                    _inputHead.y = 0;
-            }           
+                if (result.x > 0)
+                    result.x = 0;
+                if (result.y < 0)
+                    result.y = 0;
+            }
         }
 
-        var rayLeftUp = new Ray(cp, Vector3.up + Vector3.left);
-        Debug.DrawLine(cp, cp + (Vector3.up + Vector3.left).normalized * HeadCollider.radius, Color.red);
+        var rayLeftUp = new Ray(nextPosition, Vector3.up + Vector3.left);
+        Debug.DrawLine(nextPosition, nextPosition + (Vector3.up + Vector3.left).normalized * HeadCollider.radius, Color.red);
         if (Physics.Raycast(rayLeftUp, HeadCollider.radius, layerMask))
         {
-            Debug.DrawLine(cp, cp + (Vector3.up + Vector3.left).normalized * HeadCollider.radius, Color.blue);
+            Debug.DrawLine(nextPosition, nextPosition + (Vector3.up + Vector3.left).normalized * HeadCollider.radius, Color.blue);
             // нажато только налево и слева пусто
-            if (!left && _inputHead.x < 0 && _inputHead.y == 0)
+            if (!left && result.x < 0 && result.y == 0)
             {
-                _inputHead.y = _inputHead.x * 0.5f;
-                _inputHead.x *= 0.5f;
+                result.y = result.x * 0.5f;
+                result.x *= 0.5f;
             }
             // нажато только вверх и вверху пусто
-            else if (!up && _inputHead.y > 0 && _inputHead.x == 0)
+            else if (!up && result.y > 0 && result.x == 0)
             {
-                _inputHead.x = _inputHead.y * 0.5f;
-                _inputHead.y *= 0.5f;
+                result.x = result.y * 0.5f;
+                result.y *= 0.5f;
             }
             else
             {
-                if (_inputHead.x < 0)
-                    _inputHead.x = 0;
-                if (_inputHead.y > 0)
-                    _inputHead.y = 0;
-            }              
+                if (result.x < 0)
+                    result.x = 0;
+                if (result.y > 0)
+                    result.y = 0;
+            }
         }
 
-        var rayLeftDown = new Ray(cp, Vector3.down + Vector3.left);
-        Debug.DrawLine(cp, cp + (Vector3.down + Vector3.left).normalized * HeadCollider.radius, Color.red);
+        var rayLeftDown = new Ray(nextPosition, Vector3.down + Vector3.left);
+        Debug.DrawLine(nextPosition, nextPosition + (Vector3.down + Vector3.left).normalized * HeadCollider.radius, Color.red);
         if (Physics.Raycast(rayLeftDown, HeadCollider.radius, layerMask))
         {
-            Debug.DrawLine(cp, cp + (Vector3.down + Vector3.left).normalized * HeadCollider.radius, Color.blue);
+            Debug.DrawLine(nextPosition, nextPosition + (Vector3.down + Vector3.left).normalized * HeadCollider.radius, Color.blue);
 
             // нажато только налево и слева пусто
-            if (!left && _inputHead.x < 0 && _inputHead.y == 0)
+            if (!left && result.x < 0 && result.y == 0)
             {
-                _inputHead.y = _inputHead.x * -0.5f;
-                _inputHead.x *= 0.5f;
-            }            
-            else if (!down && _inputHead.y < 0 && _inputHead.x == 0)
+                result.y = result.x * -0.5f;
+                result.x *= 0.5f;
+            }
+            else if (!down && result.y < 0 && result.x == 0)
             {
-                _inputHead.x = _inputHead.y * -0.5f;
-                _inputHead.y *= 0.5f;
+                result.x = result.y * -0.5f;
+                result.y *= 0.5f;
             }
             else
             {
-                if (_inputHead.x < 0)
-                    _inputHead.x = 0;
-                if (_inputHead.y < 0)
-                    _inputHead.y = 0;
-            }                   
+                if (result.x < 0)
+                    result.x = 0;
+                if (result.y < 0)
+                    result.y = 0;
+            }
         }
 
-        var nextHeadPosition = headPoint.PositionWorld + _inputHead * Speed * Time.deltaTime;
-        /*
-
-                if (HeadCollidedWith != null)
-                {
-
-                    //var dd1 = Vector3.Distance(HeadCollidedWith.bounds.center, nextHeadPosition);
-                    var nextDist = (HeadCollidedWith.bounds.center - nextHeadPosition).sqrMagnitude;  //HeadCollidedWith.bounds.SqrDistance(nextHeadPosition);          
-                    var currentDist = (HeadCollidedWith.bounds.center - headPoint.PositionWorld).sqrMagnitude;// HeadCollidedWith.bounds.SqrDistance(headPoint.PositionWorld);
-
-                   // var nextDist = (HeadCollidedWith.bounds.center - nextHeadPosition).sqrMagnitude;  //HeadCollidedWith.bounds.SqrDistance(nextHeadPosition);          
-                   // var currentDist = (HeadCollidedWith.bounds.center - headPoint.PositionWorld).sqrMagnitude;// HeadCollidedWith.bounds.SqrDistance(headPoint.PositionWorld);
-
-                    if (nextDist < currentDist)
-                    {
-                        var closestPoint = HeadCollidedWith.ClosestPointOnBounds(headPoint.PositionWorld);
-                        var direction = (closestPoint - HeadCollidedWith.bounds.center).normalized * 0.01f;
-                        direction.z = 0;
-
-                        nextHeadPosition = headPoint.PositionWorld + direction;
-                        Debug.DrawLine(closestPoint, nextHeadPosition, Color.blue, 1f);
-                    }
-
-                }*/
-        headPoint.PositionWorld = nextHeadPosition;
-
-        var nextTailPosition = tailPoint.PositionWorld + _inputTail * Speed * Time.deltaTime;
-        tailPoint.PositionWorld = nextTailPosition;
+        return result;
     }
 
     private void UpdateBones()
