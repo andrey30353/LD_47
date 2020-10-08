@@ -1,5 +1,6 @@
 ﻿using BansheeGz.BGSpline.Components;
 using BansheeGz.BGSpline.Curve;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -189,22 +190,52 @@ public class Worm : MonoBehaviour
         if (_inputHead != Vector3.zero)
         {
             var nextPositionHead = HeadCollider.transform.position - HeadCollider.center + _inputHead * Speed * Time.deltaTime;
-            var correctedInputHead = CorrectInput(nextPositionHead, _inputHead);
-            var nextHeadPosition = headPoint.PositionWorld + correctedInputHead * Speed * Time.deltaTime;
-            headPoint.PositionWorld = nextHeadPosition;
-        }
 
+            var correctedInputHead = CorrectInputByCollision(nextPositionHead, _inputHead);
+            correctedInputHead = CorrectInputByForm(tailPoint.PositionWorld, headPoint.PositionWorld, correctedInputHead);
+
+            var nextHeadPosition = headPoint.PositionWorld + correctedInputHead * Speed * Time.deltaTime;
+            headPoint.PositionWorld = nextHeadPosition;                      
+        }
 
         if (_inputTail != Vector3.zero)
         {
             var nextPositionTail = TailCollider.transform.position - TailCollider.center + _inputTail * Speed * Time.deltaTime;
-            var correctedInputTail = CorrectInput(nextPositionTail, _inputTail);
+            
+            var correctedInputTail = CorrectInputByCollision(nextPositionTail, _inputTail);
+            correctedInputTail = CorrectInputByForm(headPoint.PositionWorld, tailPoint.PositionWorld, correctedInputTail);
+            
             var nextTailPosition = tailPoint.PositionWorld + correctedInputTail * Speed * Time.deltaTime;
-            tailPoint.PositionWorld = nextTailPosition;
+            tailPoint.PositionWorld = nextTailPosition;                     
         }
     }
 
-    private Vector3 CorrectInput(Vector3 nextPosition, Vector3 input)
+    private bool LengthIsCorrect(Vector3 positionWorld, Vector3 nextHeadPosition)
+    {
+        var length = (nextHeadPosition - positionWorld).magnitude;
+        if (length <= Length)
+            return true;
+
+        return false;
+    }
+
+    private Vector3 CorrectInputByForm(Vector3 otherPartPosition, Vector3 currentPosition, Vector3 input)
+    {
+        var nextPosition = currentPosition + input * Speed * Time.deltaTime;
+        var correct = LengthIsCorrect(otherPartPosition, nextPosition);
+        if (correct)
+        {
+            return input;
+        }
+        else
+        {
+            return Vector3.zero;
+        }
+    }
+
+   
+
+    private Vector3 CorrectInputByCollision(Vector3 nextPosition, Vector3 input)
     {
         var result = input;
 
