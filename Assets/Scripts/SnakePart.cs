@@ -35,6 +35,16 @@ public class SnakePart : MonoBehaviour
        SetInfo(Type, false, Vector3.zero, false);
     }
 
+    private void OnTriggerEnter(Collider other)
+    {        
+        print("OnTriggerEnter " + other.name);       
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        print("OnTriggerExit " + other.name);
+    }
+
     private void EvaluateCollision(Collision collision)
     {
         var contactNorm = Vector3.up;
@@ -50,7 +60,7 @@ public class SnakePart : MonoBehaviour
           // print(cantMove.Type);
         }
 
-        //print("EvaluateCollision = " + collision.collider.name);        
+        print("EvaluateCollision = " + collision.collider.name);        
         /*for (int i = 0; i < collision.contactCount; i++)
         {
             Vector3 normal = collision.GetContact(i).normal;
