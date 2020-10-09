@@ -51,8 +51,8 @@ public class Worm : MonoBehaviour
     public Collider TailCollidedWith;
 
     float CurrentDistance => (headPoint.PositionWorld - tailPoint.PositionWorld).magnitude;
-    float CurrentDistanceX => headPoint.PositionWorld.x - tailPoint.PositionWorld.x;
-    float CurrentDistanceY => headPoint.PositionWorld.y - tailPoint.PositionWorld.y;
+    float CurrentDistanceX => Math.Abs(headPoint.PositionWorld.x - tailPoint.PositionWorld.x);
+    float CurrentDistanceY => Math.Abs(headPoint.PositionWorld.y - tailPoint.PositionWorld.y);
 
     public SoundEffector soundEffector;
 
@@ -75,7 +75,7 @@ public class Worm : MonoBehaviour
     {
         CurrentDistance_test = CurrentDistance;
         CurrentDistanceX_test = CurrentDistanceX;
-        CurrentDistanceY_test = CurrentDistanceY;
+        CurrentDistanceY_test = CurrentDistanceY;      
         DistanceRelation = (CurrentDistanceX + 1) / (CurrentDistanceY + 1);
     }
 
@@ -113,7 +113,7 @@ public class Worm : MonoBehaviour
       
         UpdatePosition();
 
-       // Test();
+        Test();
         
 
         // отменяем все, если длина увеличилась       
@@ -211,9 +211,10 @@ public class Worm : MonoBehaviour
 
             var correctedInputHead = CorrectInputByCollision(nextPositionHead, _inputHead);
             correctedInputHead = CorrectInputByForm(tailPoint.PositionWorld, headPoint.PositionWorld, correctedInputHead);
+            correctedInputHead = CorrectInputByFormHead(correctedInputHead);
 
             var nextHeadPosition = headPoint.PositionWorld + correctedInputHead * Speed * Time.deltaTime;
-            headPoint.PositionWorld = nextHeadPosition;                      
+            headPoint.PositionWorld = nextHeadPosition; 
         }
 
         if (_inputTail != Vector3.zero)
@@ -222,10 +223,29 @@ public class Worm : MonoBehaviour
             
             var correctedInputTail = CorrectInputByCollision(nextPositionTail, _inputTail);
             correctedInputTail = CorrectInputByForm(headPoint.PositionWorld, tailPoint.PositionWorld, correctedInputTail);
-            
+            correctedInputTail = CorrectInputByFormTail(correctedInputTail);
+
             var nextTailPosition = tailPoint.PositionWorld + correctedInputTail * Speed * Time.deltaTime;
             tailPoint.PositionWorld = nextTailPosition;                     
         }
+    }
+
+    private Vector3 CorrectInputByFormHead(Vector3 input)
+    {
+        var nextX = headPoint.PositionWorld.x + input.x * Speed * Time.deltaTime;
+        if (nextX < tailPoint.PositionWorld.x)
+            input.x = 0;
+
+        return input;
+    }
+
+    private Vector3 CorrectInputByFormTail(Vector3 input)
+    {
+        var nextX = tailPoint.PositionWorld.x + input.x * Speed * Time.deltaTime;
+        if (nextX > headPoint.PositionWorld.x)
+            input.x = 0;
+
+        return input;
     }
 
     private bool LengthIsCorrect(Vector3 positionWorld, Vector3 nextHeadPosition)
@@ -235,14 +255,15 @@ public class Worm : MonoBehaviour
             return true;
 
         return false;
-    }
+    }   
 
     private Vector3 CorrectInputByForm(Vector3 otherPartPosition, Vector3 currentPosition, Vector3 input)
     {
         var nextPosition = currentPosition + input * Speed * Time.deltaTime;
-        var correct = LengthIsCorrect(otherPartPosition, nextPosition);
-        if (correct)
+        var correctLenght = LengthIsCorrect(otherPartPosition, nextPosition);      
+        if (correctLenght)
         {
+
             return input;
         }
         else
