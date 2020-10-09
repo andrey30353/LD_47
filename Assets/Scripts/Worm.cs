@@ -52,6 +52,7 @@ public class Worm : MonoBehaviour
 
     float CurrentDistance => (headPoint.PositionWorld - tailPoint.PositionWorld).magnitude;
     float CurrentDistanceX => headPoint.PositionWorld.x - tailPoint.PositionWorld.x;
+    float CurrentDistanceY => headPoint.PositionWorld.y - tailPoint.PositionWorld.y;
 
     public SoundEffector soundEffector;
 
@@ -97,6 +98,8 @@ public class Worm : MonoBehaviour
         ProcessInput();
       
         UpdatePosition();
+
+        //print("angle " + Vector3.Angle(tailPoint.PositionWorld, headPoint.PositionWorld));
 
         // отменяем все, если длина увеличилась       
         //if (IsIncorrectSnake())
@@ -228,9 +231,10 @@ public class Worm : MonoBehaviour
             return input;
         }
         else
-        {
-            return Vector3.zero;
+        {           
+            input = Vector3.zero;                      
         }
+        return input;
     }
 
    
