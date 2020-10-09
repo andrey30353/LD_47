@@ -56,6 +56,12 @@ public class Worm : MonoBehaviour
 
     public SoundEffector soundEffector;
 
+    [Header("test")]
+    public float CurrentDistance_test;
+    public float CurrentDistanceX_test;
+    public float CurrentDistanceY_test;
+    public float DistanceRelation ;
+
     /*
     public Vector3 headContactNormal;
     public Vector3 midContactNormal;
@@ -64,6 +70,14 @@ public class Worm : MonoBehaviour
     [SerializeField, Range(0f, 90f)]
     public float maxGroundAngle = 25f;
     public float minGroundDotProduct;*/
+
+    private void Test()
+    {
+        CurrentDistance_test = CurrentDistance;
+        CurrentDistanceX_test = CurrentDistanceX;
+        CurrentDistanceY_test = CurrentDistanceY;
+        DistanceRelation = (CurrentDistanceX + 1) / (CurrentDistanceY + 1);
+    }
 
     /* void OnValidate()
      {
@@ -99,7 +113,8 @@ public class Worm : MonoBehaviour
       
         UpdatePosition();
 
-        //print("angle " + Vector3.Angle(tailPoint.PositionWorld, headPoint.PositionWorld));
+       // Test();
+        
 
         // отменяем все, если длина увеличилась       
         //if (IsIncorrectSnake())
