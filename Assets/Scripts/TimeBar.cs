@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,6 +27,7 @@ public class TimeBar : MonoBehaviour
 	public bool IsActive => comic.activeSelf == false;
 
 	public PostProcessControll postProcessControl;
+	[SerializeField] private float[] beepTime = new float[10];
 	
 	public static TimeBar Instance;
 
@@ -47,17 +50,17 @@ public class TimeBar : MonoBehaviour
 		//StartCoroutine(Beep);
 	}	
 
-	private IEnumerable Beep()
-	{
-		while (true)
-		{
-			if (!IsActive)
-				yield return null;
+	//private IEnumerable Beep()
+	//{
+	//	while (true)
+	//	{
+	//		if (!IsActive)
+	//			yield return null;
 
 
-			yield return new WaitForSeconds(1f);
-		}		
-	}
+	//		yield return new WaitForSeconds(1f);
+	//	}		
+	//}
 
 	private bool isBeeped = false;
 	void Update()
@@ -68,7 +71,7 @@ public class TimeBar : MonoBehaviour
 		{ 
 			if(postProcessControl != null)
 			{
-				StartCoroutine(postProcessControl.Beep());
+				StartCoroutine(postProcessControl.Beep(timeAmount - 10));
 				isBeeped = true;
 			}			
 		}
@@ -80,10 +83,15 @@ public class TimeBar : MonoBehaviour
 
 		if (current > maxValue) current = maxValue;
 
-		slider.value = current;				
+		slider.value = current;
+
+		
 
 		CheckDead();
 	}
+
+
+	
 
 
 	public void CheckDead()
@@ -94,7 +102,7 @@ public class TimeBar : MonoBehaviour
 			{
 				postProcessControl.flash = true;
 				postProcessControl.flashBig = true;
-
+				isBeeped = false;
 			}
 
 			current = maxValue;

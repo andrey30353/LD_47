@@ -130,6 +130,50 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2550900822160538, guid: 229c74078b1944941a9712ae41f10c52, type: 3}
+      propertyPath: beepTime.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2550900822160538, guid: 229c74078b1944941a9712ae41f10c52, type: 3}
+      propertyPath: beepTime.Array.data[9]
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2550900822160538, guid: 229c74078b1944941a9712ae41f10c52, type: 3}
+      propertyPath: beepTime.Array.data[0]
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2550900822160538, guid: 229c74078b1944941a9712ae41f10c52, type: 3}
+      propertyPath: beepTime.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2550900822160538, guid: 229c74078b1944941a9712ae41f10c52, type: 3}
+      propertyPath: beepTime.Array.data[2]
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2550900822160538, guid: 229c74078b1944941a9712ae41f10c52, type: 3}
+      propertyPath: beepTime.Array.data[3]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2550900822160538, guid: 229c74078b1944941a9712ae41f10c52, type: 3}
+      propertyPath: beepTime.Array.data[4]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2550900822160538, guid: 229c74078b1944941a9712ae41f10c52, type: 3}
+      propertyPath: beepTime.Array.data[5]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2550900822160538, guid: 229c74078b1944941a9712ae41f10c52, type: 3}
+      propertyPath: beepTime.Array.data[6]
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2550900822160538, guid: 229c74078b1944941a9712ae41f10c52, type: 3}
+      propertyPath: beepTime.Array.data[7]
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2550900822160538, guid: 229c74078b1944941a9712ae41f10c52, type: 3}
+      propertyPath: beepTime.Array.data[8]
+      value: 17
+      objectReference: {fileID: 0}
     - target: {fileID: 2550900934940778, guid: 229c74078b1944941a9712ae41f10c52, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

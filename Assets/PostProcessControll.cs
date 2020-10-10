@@ -122,40 +122,42 @@ public class PostProcessControll : MonoBehaviour
        // yield return null;
     }
 
-    public IEnumerator Beep()
+    public IEnumerator Beep(float silenceTime)
     {
+        yield return new WaitForSeconds(silenceTime); // 10
+        soundEffector.PlayBeepSound();
+        flash = true;
         //10
-        soundEffector.PlayBeepSound();
-        yield return new WaitForSeconds(1f);
 
-        //9
+        yield return new WaitForSeconds(3f);  // 7
         soundEffector.PlayBeepSound();
         flash = true;
-        colorGradingLayer.postExposure.value = expoValueDef; 
-        yield return new WaitForSeconds(1f - 0.05f);
 
-        //8
+        yield return new WaitForSeconds(2f);  // 5
         soundEffector.PlayBeepSound();
         flash = true;
-        colorGradingLayer.postExposure.value = expoValueDef;
-        yield return new WaitForSeconds(1f - 0.05f);
 
-        //7
+        yield return new WaitForSeconds(2f);  // 3
         soundEffector.PlayBeepSound();
         flash = true;
-        colorGradingLayer.postExposure.value = expoValueDef;
-        yield return new WaitForSeconds(1f - 0.05f);
 
-        //6
+        yield return new WaitForSeconds(1f);  // 2
         soundEffector.PlayBeepSound();
         flash = true;
-        colorGradingLayer.postExposure.value = expoValueDef;
-        yield return new WaitForSeconds(1f - 0.05f);
 
-        //5
+        yield return new WaitForSeconds(0.5f);  // 1,5
         soundEffector.PlayBeepSound();
         flash = true;
-        colorGradingLayer.postExposure.value = expoValueDef;
-        yield return new WaitForSeconds(1f - 0.05f);        
+
+        yield return new WaitForSeconds(0.5f);  // 1
+        soundEffector.PlayBeepSound();
+        flash = true;
+
+        yield return new WaitForSeconds(0.5f);  // 0,5
+        soundEffector.PlayBeepSound();
+        flash = true;
+
+
+
     }
 }
