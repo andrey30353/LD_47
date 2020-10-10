@@ -61,12 +61,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff9375e332696bc45b23a4e2ad351aaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exposureValueDef: 0.38
-  bigBeepValue: 1.58
-  needValue: 0.58
   colorGradingLayer: {fileID: 0}
   soundEffector: {fileID: 0}
+  expoValueDef: 0.38
+  expoBeep: 0.58
+  expoBeepBig: 4
+  beepOutSpeed: 1
+  beepInSpeed: 20
   flash: 0
   flashBig: 0
-  flashSpeed: 2
-  flashBigSpeed: 2

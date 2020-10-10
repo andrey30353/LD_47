@@ -6,41 +6,59 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class PostProcessControll : MonoBehaviour
 {
-    public float exposureValueDef = 0.38f;
-    public float bigBeepValue = 2.58f;
-    private float currentValue = 0;
-    public float needValue = 0.58f;
+    
     public ColorGrading colorGradingLayer = null;
     public SoundEffector soundEffector;
 
-    public bool flash = false;
+
+    [Header("Beep Settings")]
+    [SerializeField][Range(0, 10)]
+    private float expoValueDef = 0.38f;   // Current Value Exposure in ColorGrading
+    [SerializeField][Range(0, 10)]
+    private float expoBeep = 0.58f;       // Value Exposure for normal Beep in ColorGrading
+    [SerializeField][Range(0, 10)]
+    private float expoBeepBig = 2.58f;    // Value Exposure for Big Beep in ColorGrading
+
+    [Space(20)]
+    [SerializeField][Range(0,50)]
+    private float beepOutSpeed = 0.1f;    // Flash increase speed
+    [SerializeField][Range(0, 50)]
+    private float beepInSpeed = 10f;      // Flash decrease speed
+
+    private float k = 0;                  // Alpha for lerp
+    [HideInInspector]
+    public bool flash = false;            
+    [HideInInspector]
     public bool flashBig = false;
-    public float flashSpeed = 2f;
-    public float flashBigSpeed = 2f;
     private int flashCount = 0;
     private bool flashForward = true;
-    private float k = 0;
 
     void Start()
     {
         PostProcessVolume volume = gameObject.GetComponent<PostProcessVolume>();
         volume.profile.TryGetSettings(out colorGradingLayer);
-        exposureValueDef = colorGradingLayer.postExposure.value;
+        expoValueDef = colorGradingLayer.postExposure.value;
 
-       // needValue = exposureValueDef;
-        currentValue = exposureValueDef;
     }
 
     private void Update()
     {
-        FlashStart(flashSpeed);
+        BeepFlash();
     }
 
-    private void FlashStart(float speed)
+    private void BeepFlash()
     {
         if (flash && flashCount < 1)
         {
-            k = k + (Time.deltaTime * speed);
+            if(flashForward)
+            {
+                k = k + (Time.deltaTime * beepInSpeed);
+            }
+            else
+            {
+                k = k + (Time.deltaTime * beepOutSpeed);
+            }
+            
             if (k > 1)
             {
                 k = 0;
@@ -59,26 +77,24 @@ public class PostProcessControll : MonoBehaviour
             {
                 if (!flashBig)
                 {
-                    colorGradingLayer.postExposure.value = Mathf.Lerp(0.38f, 0.58f, k);
+                    colorGradingLayer.postExposure.value = Mathf.Lerp(expoValueDef, expoBeep, k);
                 }
                 else
                 {
-                    colorGradingLayer.postExposure.value = Mathf.Lerp(0.38f, 2.58f, k);
+                    colorGradingLayer.postExposure.value = Mathf.Lerp(expoValueDef, expoBeepBig, k);
                 }
-
             }
             else
             {
                 if (!flashBig)
                 {
-                    colorGradingLayer.postExposure.value = Mathf.Lerp(0.58f, 0.38f, k);
+                    colorGradingLayer.postExposure.value = Mathf.Lerp(expoBeep, expoValueDef, k);
                 }
                 else
                 {
-                    colorGradingLayer.postExposure.value = Mathf.Lerp(2.58f, 0.58f, k);
+                    colorGradingLayer.postExposure.value = Mathf.Lerp(expoBeepBig, expoValueDef, k);
                 }
             }
-
         }
         else
         {
@@ -95,14 +111,14 @@ public class PostProcessControll : MonoBehaviour
     }
     public void ReturnExposure()
     {
-        colorGradingLayer.postExposure.value = exposureValueDef;
+        colorGradingLayer.postExposure.value = expoValueDef;
     }  
 
     public IEnumerator BigBeep()
     {
         colorGradingLayer.postExposure.value = 1;
         yield return new WaitForSeconds(0.05f);
-        colorGradingLayer.postExposure.value = exposureValueDef;
+        colorGradingLayer.postExposure.value = expoValueDef;
        // yield return null;
     }
 
@@ -115,31 +131,31 @@ public class PostProcessControll : MonoBehaviour
         //9
         soundEffector.PlayBeepSound();
         flash = true;
-        colorGradingLayer.postExposure.value = exposureValueDef; 
+        colorGradingLayer.postExposure.value = expoValueDef; 
         yield return new WaitForSeconds(1f - 0.05f);
 
         //8
         soundEffector.PlayBeepSound();
         flash = true;
-        colorGradingLayer.postExposure.value = exposureValueDef;
+        colorGradingLayer.postExposure.value = expoValueDef;
         yield return new WaitForSeconds(1f - 0.05f);
 
         //7
         soundEffector.PlayBeepSound();
         flash = true;
-        colorGradingLayer.postExposure.value = exposureValueDef;
+        colorGradingLayer.postExposure.value = expoValueDef;
         yield return new WaitForSeconds(1f - 0.05f);
 
         //6
         soundEffector.PlayBeepSound();
         flash = true;
-        colorGradingLayer.postExposure.value = exposureValueDef;
+        colorGradingLayer.postExposure.value = expoValueDef;
         yield return new WaitForSeconds(1f - 0.05f);
 
         //5
         soundEffector.PlayBeepSound();
         flash = true;
-        colorGradingLayer.postExposure.value = exposureValueDef;
+        colorGradingLayer.postExposure.value = expoValueDef;
         yield return new WaitForSeconds(1f - 0.05f);        
     }
 }
