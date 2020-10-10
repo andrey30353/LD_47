@@ -48,21 +48,6 @@ public class UI : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    public void OpenLevel1()
-    {
-        SceneManager.LoadScene(1);
-    }
-
-    public void OpenLevel2()
-    {
-        SceneManager.LoadScene(2);
-    }
-
-    public void OpenLevel3()
-    {
-        SceneManager.LoadScene(3);
-    }
-
     public void ContinueLevel()
     {
         if (PlayerPrefs.GetInt("ContinueLevel") == 1)
@@ -80,6 +65,14 @@ public class UI : MonoBehaviour
             SceneManager.LoadScene(3);
         }
     }
+
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+
 
 
 }

@@ -73,7 +73,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -29}
+  m_AnchoredPosition: {x: 0, y: -70}
   m_SizeDelta: {x: 300.51147, y: 21.027313}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6676047157017125873
@@ -139,11 +139,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 6676047157017125873}
+  current: 0
   timeAmount: 15
   WormPrefab: {fileID: 3125661182283932236, guid: a876f8620e8acc94bbe3d985a882d83f, type: 3}
   SpawnPoint: {fileID: 0}
   CurrentWorm: {fileID: 0}
   comic: {fileID: 0}
+  postProcessControl: {fileID: 0}
 --- !u!1 &6676047157130825473
 GameObject:
   m_ObjectHideFlags: 0

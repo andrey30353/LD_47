@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8090082993932693986}
   - component: {fileID: 8090082993932693985}
   m_Layer: 5
-  m_Name: Comic
+  m_Name: Comic1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -640, y: -360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8090082993932693986
 CanvasRenderer:
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a242c0e6eed482346885ec6bd0bd67ec, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e7d0488546a739648a5d530ebb78f903, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

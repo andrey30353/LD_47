@@ -142,3 +142,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
   crawlSound: {fileID: 8300000, guid: 57f1f713dc7dbc240a1eb882ae9582c0, type: 3}
+  eatSound: {fileID: 8300000, guid: 755ec7a36f4c553459a25f17f030a4ed, type: 3}
+  beepSound: {fileID: 8300000, guid: 476d865dd89d6a947a532f86513a12e5, type: 3}
