@@ -54,13 +54,20 @@ public class Worm : MonoBehaviour
     float CurrentDistanceX => Math.Abs(headPoint.PositionWorld.x - tailPoint.PositionWorld.x);
     float CurrentDistanceY => Math.Abs(headPoint.PositionWorld.y - tailPoint.PositionWorld.y);
 
+    float minDistanceX;
+
     public SoundEffector soundEffector;
 
     [Header("test")]
     public float CurrentDistance_test;
     public float CurrentDistanceX_test;
     public float CurrentDistanceY_test;
-    public float DistanceRelation ;
+    public float DistanceRelation;
+    public float rotationAngle;
+    public float tanRotationAngle;
+    public Vector3 rel2;
+
+    public float rel;
 
     /*
     public Vector3 headContactNormal;
@@ -75,8 +82,24 @@ public class Worm : MonoBehaviour
     {
         CurrentDistance_test = CurrentDistance;
         CurrentDistanceX_test = CurrentDistanceX;
-        CurrentDistanceY_test = CurrentDistanceY;      
-        DistanceRelation = (CurrentDistanceX + 1) / (CurrentDistanceY + 1);
+        CurrentDistanceY_test = CurrentDistanceY;
+        DistanceRelation = (CurrentDistanceX) / (CurrentDistanceY);
+
+        //1       
+        Vector3 newDirection = (headPoint.PositionWorld - tailPoint.PositionWorld);
+        //2
+        float x = newDirection.x;
+        float y = newDirection.y;
+        rotationAngle = Mathf.Atan2(y, x) * Mathf.Rad2Deg;
+        //tanRotationAngle = Mathf.Tan(Mathf.Atan2(y, x)) * Mathf.Rad2Deg;
+        tanRotationAngle = Mathf.Tan(Mathf.Atan2(y, x));
+
+        if (rotationAngle <= 45)
+            rel = tanRotationAngle;
+        else
+            rel = 1 / tanRotationAngle;
+
+        rel2 = newDirection.normalized;        
     }
 
     /* void OnValidate()
@@ -102,6 +125,8 @@ public class Worm : MonoBehaviour
         minDistance = Length * 0.5f;
         prevLength = Length;
 
+        minDistanceX = Length * 0.2f;
+
         //UpdateBones();
     }
 
@@ -110,11 +135,11 @@ public class Worm : MonoBehaviour
     void Update()
     {
         ProcessInput();
-      
+
         UpdatePosition();
 
-        Test();
-        
+        // Test();
+
 
         // отменяем все, если длина увеличилась       
         //if (IsIncorrectSnake())
@@ -153,7 +178,7 @@ public class Worm : MonoBehaviour
 
         UpdateMidPoint();
 
-        //  CorrectControlPoints();
+        CorrectControlPoints();
 
         UpdateBones();
 
@@ -214,26 +239,26 @@ public class Worm : MonoBehaviour
             correctedInputHead = CorrectInputByFormHead(correctedInputHead);
 
             var nextHeadPosition = headPoint.PositionWorld + correctedInputHead * Speed * Time.deltaTime;
-            headPoint.PositionWorld = nextHeadPosition; 
+            headPoint.PositionWorld = nextHeadPosition;
         }
 
         if (_inputTail != Vector3.zero)
         {
             var nextPositionTail = TailCollider.transform.position - TailCollider.center + _inputTail * Speed * Time.deltaTime;
-            
+
             var correctedInputTail = CorrectInputByCollision(nextPositionTail, _inputTail);
             correctedInputTail = CorrectInputByForm(headPoint.PositionWorld, tailPoint.PositionWorld, correctedInputTail);
             correctedInputTail = CorrectInputByFormTail(correctedInputTail);
 
             var nextTailPosition = tailPoint.PositionWorld + correctedInputTail * Speed * Time.deltaTime;
-            tailPoint.PositionWorld = nextTailPosition;                     
+            tailPoint.PositionWorld = nextTailPosition;
         }
     }
 
     private Vector3 CorrectInputByFormHead(Vector3 input)
     {
         var nextX = headPoint.PositionWorld.x + input.x * Speed * Time.deltaTime;
-        if (nextX < tailPoint.PositionWorld.x)
+        if (nextX < tailPoint.PositionWorld.x + minDistanceX * 2)
             input.x = 0;
 
         return input;
@@ -242,7 +267,7 @@ public class Worm : MonoBehaviour
     private Vector3 CorrectInputByFormTail(Vector3 input)
     {
         var nextX = tailPoint.PositionWorld.x + input.x * Speed * Time.deltaTime;
-        if (nextX > headPoint.PositionWorld.x)
+        if (nextX > headPoint.PositionWorld.x - minDistanceX * 2)
             input.x = 0;
 
         return input;
@@ -255,25 +280,24 @@ public class Worm : MonoBehaviour
             return true;
 
         return false;
-    }   
+    }
 
     private Vector3 CorrectInputByForm(Vector3 otherPartPosition, Vector3 currentPosition, Vector3 input)
     {
         var nextPosition = currentPosition + input * Speed * Time.deltaTime;
-        var correctLenght = LengthIsCorrect(otherPartPosition, nextPosition);      
+        var correctLenght = LengthIsCorrect(otherPartPosition, nextPosition);
         if (correctLenght)
         {
-
             return input;
         }
         else
-        {           
-            input = Vector3.zero;                      
+        {
+            input = Vector3.zero;
         }
         return input;
     }
 
-   
+
 
     private Vector3 CorrectInputByCollision(Vector3 nextPosition, Vector3 input)
     {
@@ -459,16 +483,19 @@ public class Worm : MonoBehaviour
         var middle = (headPoint.PositionWorld + tailPoint.PositionWorld) * 0.5f;
         var freeLength = Mathf.Clamp(Length - CurrentDistance, 0, Length);
 
-        midPoint.PositionWorld = middle /*+ Vector3.up * freeLength * 0.8f*/;
+        midPoint.PositionWorld = middle + Vector3.up * freeLength * 0.8f;
     }
 
     private void CorrectControlPoints()
     {
         if (CurrentDistance < Length)
         {
-            headPoint.ControlFirstLocal = new Vector3(0.5f * CurrentDistanceX / Length, 0, 0);
-            midPoint.ControlFirstLocal = new Vector3(0.5f * CurrentDistanceX / Length, 0, 0);
-            tailPoint.ControlFirstLocal = new Vector3(0.5f * CurrentDistanceX / Length, 0, 0);
+            var distanceValue = CurrentDistanceX / Length;
+
+            headPoint.ControlFirstLocal = new Vector3(0.5f * distanceValue, 0, 0);
+            var direction = (headPoint.PositionWorld - tailPoint.PositionWorld).normalized;
+            midPoint.ControlFirstLocal = new Vector3(0.5f * distanceValue * direction.x, 0.5f * distanceValue * direction.y);
+            //tailPoint.ControlFirstLocal = new Vector3(0.5f * distanceValue, 0, 0);
         }
     }
 
