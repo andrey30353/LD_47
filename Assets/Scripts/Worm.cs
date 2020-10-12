@@ -34,9 +34,6 @@ public class Worm : MonoBehaviour
     private Vector3 _inputHead;
     private Vector3 _inputTail;
 
-    // куда смотрим - через координаты
-    bool rightView;
-
     public bool HeadInWater;
     public bool TailInWater;
 
@@ -68,6 +65,7 @@ public class Worm : MonoBehaviour
     public Vector3 rel2;
 
     public float rel;
+    public Vector3 rot;
 
     /*
     public Vector3 headContactNormal;
@@ -99,7 +97,7 @@ public class Worm : MonoBehaviour
         else
             rel = 1 / tanRotationAngle;
 
-        rel2 = newDirection.normalized;        
+        rel2 = newDirection.normalized;
     }
 
     /* void OnValidate()
@@ -114,18 +112,16 @@ public class Worm : MonoBehaviour
 
     void Start()
     {
-        rightView = true;
-
         math = Curve.GetComponent<BGCcMath>();
         headPoint = Curve.Points[0];
         midPoint = Curve.Points[1];
         tailPoint = Curve.Points[2];
 
         Length = math.GetDistance();
-        minDistance = Length * 0.5f;
+        minDistance = Length * 0.4f;
         prevLength = Length;
 
-        minDistanceX = Length * 0.2f;
+        minDistanceX = Length * 0.4f;
 
         //UpdateBones();
     }
@@ -138,7 +134,7 @@ public class Worm : MonoBehaviour
 
         UpdatePosition();
 
-        // Test();
+        //Test();
 
 
         // отменяем все, если длина увеличилась       
@@ -258,7 +254,7 @@ public class Worm : MonoBehaviour
     private Vector3 CorrectInputByFormHead(Vector3 input)
     {
         var nextX = headPoint.PositionWorld.x + input.x * Speed * Time.deltaTime;
-        if (nextX < tailPoint.PositionWorld.x + minDistanceX * 2)
+        if (nextX < tailPoint.PositionWorld.x + minDistanceX)
             input.x = 0;
 
         return input;
@@ -267,7 +263,7 @@ public class Worm : MonoBehaviour
     private Vector3 CorrectInputByFormTail(Vector3 input)
     {
         var nextX = tailPoint.PositionWorld.x + input.x * Speed * Time.deltaTime;
-        if (nextX > headPoint.PositionWorld.x - minDistanceX * 2)
+        if (nextX > headPoint.PositionWorld.x - minDistanceX)
             input.x = 0;
 
         return input;
@@ -276,10 +272,10 @@ public class Worm : MonoBehaviour
     private bool LengthIsCorrect(Vector3 positionWorld, Vector3 nextHeadPosition)
     {
         var length = (nextHeadPosition - positionWorld).magnitude;
-        if (length <= Length)
-            return true;
+        if (length > Length || length < minDistance)
+            return false;
 
-        return false;
+        return true;
     }
 
     private Vector3 CorrectInputByForm(Vector3 otherPartPosition, Vector3 currentPosition, Vector3 input)
@@ -463,27 +459,27 @@ public class Worm : MonoBehaviour
 
         _parts[0].position = math.CalcPositionAndTangentByDistanceRatio(0f, out tangAtSplineCenter);
         //Debug.Log(tangAtSplineCenter);
-        _parts[0].rotation = Quaternion.LookRotation(tangAtSplineCenter) * Quaternion.Euler(-90, -90, 0);
+        var vector = Quaternion.Euler(0,270,0);
+        _parts[0].rotation = Quaternion.LookRotation(tangAtSplineCenter, Vector3.forward) * vector;
         for (int i = 1; i < _parts.Count; i++)
         {
             // print(_parts[i]);
             var posAtSplineCenter = math.CalcPositionAndTangentByDistanceRatio(i * step, out tangAtSplineCenter);
             //Debug.Log(tangAtSplineCenter);
             _parts[i].position = posAtSplineCenter;
-            _parts[i].rotation = Quaternion.LookRotation(tangAtSplineCenter) * Quaternion.Euler(-90, -90, 0);
+            _parts[i].rotation = Quaternion.LookRotation(tangAtSplineCenter, Vector3.forward) * vector;
         }
     }
 
     private void UpdateMidPoint()
     {
-        var upVector = Vector3.up;
-        if (!rightView)
-            upVector = Vector3.down;
-
         var middle = (headPoint.PositionWorld + tailPoint.PositionWorld) * 0.5f;
         var freeLength = Mathf.Clamp(Length - CurrentDistance, 0, Length);
+        var direction = (tailPoint.PositionWorld - headPoint.PositionWorld);
+        var normal = Vector3.Cross(direction, Vector3.forward).normalized;
 
-        midPoint.PositionWorld = middle + Vector3.up * freeLength * 0.8f;
+        //Debug.DrawLine(middle, middle + normal, Color.yellow);
+        midPoint.PositionWorld = middle + normal * freeLength * 0.8f;
     }
 
     private void CorrectControlPoints()
@@ -492,9 +488,9 @@ public class Worm : MonoBehaviour
         {
             var distanceValue = CurrentDistanceX / Length;
 
-            headPoint.ControlFirstLocal = new Vector3(0.5f * distanceValue, 0, 0);
+            //headPoint.ControlFirstLocal = new Vector3(0.5f * distanceValue, 0, 0);
             var direction = (headPoint.PositionWorld - tailPoint.PositionWorld).normalized;
-            midPoint.ControlFirstLocal = new Vector3(0.5f * distanceValue * direction.x, 0.5f * distanceValue * direction.y);
+            midPoint.ControlFirstLocal = new Vector3(0.5f * /*distanceValue **/ direction.x, 0.5f * /*distanceValue **/ direction.y);
             //tailPoint.ControlFirstLocal = new Vector3(0.5f * distanceValue, 0, 0);
         }
     }
@@ -688,6 +684,12 @@ public class Worm : MonoBehaviour
         }
     }
 
+    [ContextMenu("Debug")]
+    public void Deb()
+    {
+        Start();
 
+        Update();
+    }
 
 }
