@@ -16,9 +16,12 @@ public class Worm : MonoBehaviour
     public float MaxGravity = 10;
     private float gravity;
 
-    public SphereCollider HeadCollider;
-    public SphereCollider MidCollider;
+    public SphereCollider HeadCollider;  
+    public SphereCollider MidCollider;   
     public SphereCollider TailCollider;
+    private Vector3 HeadColliderPosition => HeadCollider.transform.position - HeadCollider.center;
+    private Vector3 MidColliderPosition => MidCollider.transform.position - MidCollider.center;
+    private Vector3 TailColliderPosition => TailCollider.transform.position - TailCollider.center;
 
     public GameObject ModelContent;
     public SkinnedMeshRenderer mesh;
@@ -48,11 +51,17 @@ public class Worm : MonoBehaviour
     public bool TailIsCollided = false;
     public Collider TailCollidedWith;
 
+    public bool HeadOnGround = false;   
+    public bool MidOnGround = false;
+    public bool TailOnGround = false;   
+
     float CurrentDistance => (headPoint.PositionWorld - tailPoint.PositionWorld).magnitude;
     float CurrentDistanceX => Math.Abs(headPoint.PositionWorld.x - tailPoint.PositionWorld.x);
     float CurrentDistanceY => Math.Abs(headPoint.PositionWorld.y - tailPoint.PositionWorld.y);
 
     float minDistanceX;
+
+    int layerMask = 1 << 8;
 
     public SoundEffector soundEffector;
 
@@ -137,10 +146,9 @@ public class Worm : MonoBehaviour
 
         //Test();
              
-        //ApplyGravity();
-
-        //CorrectLenght();
-
+        ApplyGravity();
+    
+        // todo: можно пропускать, если точки хвоста и головы не менялись
         UpdateMidPoint();
 
         CorrectControlPoints();
@@ -148,8 +156,8 @@ public class Worm : MonoBehaviour
         UpdateBones();
 
         // постепенное увеличение гравитации чтобы в начале игры не провалится
-        // gravity += Time.deltaTime;
-        // gravity = Mathf.Clamp(gravity, 0, MaxGravity);
+        gravity += Time.deltaTime;
+        gravity = Mathf.Clamp(gravity, 0, MaxGravity);
     }
 
     private void FixedUpdate()
@@ -170,15 +178,14 @@ public class Worm : MonoBehaviour
         if (isDead)
             DelayedDead();
     }        
-
-    float diag = 1.414214f;
+    
     private void UpdatePosition()
     {
         if (_inputHead != Vector3.zero)
         {
-            var nextHeadColliderPosition = HeadCollider.transform.position - HeadCollider.center + _inputHead * Speed * Time.deltaTime;
+            var nextHeadColliderPosition = HeadColliderPosition + _inputHead * Speed * Time.deltaTime;
 
-            var correctedInputHead = CorrectInputByCollision(nextHeadColliderPosition, _inputHead, HeadCollider.radius);
+            var correctedInputHead = CorrectInputByCollision(nextHeadColliderPosition, _inputHead, HeadCollider.radius, ref HeadOnGround);
             correctedInputHead = CorrectInputByForm(tailPoint.PositionWorld, headPoint.PositionWorld, correctedInputHead);
             correctedInputHead = CorrectInputByFormHead(correctedInputHead);
 
@@ -194,9 +201,9 @@ public class Worm : MonoBehaviour
 
         if (_inputTail != Vector3.zero)
         {
-            var nextTailColliderPosition = TailCollider.transform.position - TailCollider.center + _inputTail * Speed * Time.deltaTime;
+            var nextTailColliderPosition = TailColliderPosition + _inputTail * Speed * Time.deltaTime;
 
-            var correctedInputTail = CorrectInputByCollision(nextTailColliderPosition, _inputTail, TailCollider.radius);
+            var correctedInputTail = CorrectInputByCollision(nextTailColliderPosition, _inputTail, TailCollider.radius, ref TailOnGround);
             correctedInputTail = CorrectInputByForm(headPoint.PositionWorld, tailPoint.PositionWorld, correctedInputTail);
             correctedInputTail = CorrectInputByFormTail(correctedInputTail);
 
@@ -355,17 +362,13 @@ public class Worm : MonoBehaviour
         return direction;
     }
 
-    private Vector3 CorrectInputByCollision(Vector3 nextPosition, Vector3 input, float radius)
-    {
+    private Vector3 CorrectInputByCollision(Vector3 nextPosition, Vector3 input, float radius, ref bool wormPartOnGround)
+    {        
         var result = input;
 
         if (result == Vector3.zero)
-            return result;
-
-        //var np = cp + result * Speed * Time.deltaTime;
-        ////HeadCollider
-        //Collider[] colliderResult = new Collider[4];
-        int layerMask = 1 << 8;
+            return result; 
+           
 
         var rayRight = new Ray(nextPosition, Vector3.right);
         Debug.DrawLine(nextPosition, nextPosition + Vector3.right * radius, Color.red);
@@ -587,6 +590,36 @@ public class Worm : MonoBehaviour
         return false;
     }
 
+    private bool IsOnGround(Vector3 position, float radius)
+    {   
+        var rayDown = new Ray(position, Vector3.down);
+        Debug.DrawLine(position, position + Vector3.down * radius, Color.red);
+        bool down = Physics.Raycast(rayDown, radius, layerMask);
+        if (down)
+        {
+           Debug.DrawLine(position, position + Vector3.down * radius, Color.blue);
+            return true;
+        }      
+
+        var rayRightDown = new Ray(position, Vector3.down + Vector3.right);
+        Debug.DrawLine(position, position + (Vector3.down + Vector3.right).normalized * radius, Color.red);
+        if (Physics.Raycast(rayRightDown, radius, layerMask))
+        {
+            Debug.DrawLine(position, position + (Vector3.down + Vector3.right).normalized * radius, Color.blue);
+            return true;
+        }
+        
+        var rayLeftDown = new Ray(position, Vector3.down + Vector3.left);
+        Debug.DrawLine(position, position + (Vector3.down + Vector3.left).normalized * radius, Color.red);
+        if (Physics.Raycast(rayLeftDown, radius, layerMask))
+        {
+            Debug.DrawLine(position, position + (Vector3.down + Vector3.left).normalized * radius, Color.blue);
+            return true;
+        }
+
+        return false;
+    }
+
     private void UpdateBones()
     {
         //get position at the center of the spline  
@@ -640,39 +673,61 @@ public class Worm : MonoBehaviour
 
     private void ApplyGravity()
     {
-        if (MidIsCollided)
-            return;
-
-        if (!TailIsCollided && !HeadIsCollided)
+        var midOnGrount = IsOnGround(MidColliderPosition, MidCollider.radius);
+        if (midOnGrount)
         {
-            headPoint.PositionWorld = headPoint.PositionWorld + Vector3.down * gravity * Time.deltaTime;
-            tailPoint.PositionWorld = tailPoint.PositionWorld + Vector3.down * gravity * Time.deltaTime;
-            return;
+            //print("midOnGrount");
+            return; 
         }
 
-        if (!TailIsCollided)
+        if (_inputHead == Vector3.zero && _inputTail == Vector3.zero)
         {
-            tailPoint.PositionWorld = tailPoint.PositionWorld + Vector3.down * 1 * Time.deltaTime;
-        }
+            //if (gravity == MaxGravity)
+            //    gravity = 0;
 
-        if (!HeadIsCollided)
-        {
-            headPoint.PositionWorld = headPoint.PositionWorld + Vector3.down * 1 * Time.deltaTime;
-        }
-
-
-        // отменяем все, если длина увеличилась       
-        /*if (CurrentDistance > Length)
-        {
-            if (useHead)
+            var headOnGrount = IsOnGround(HeadColliderPosition, HeadCollider.radius);
+            var tailOnGrount = IsOnGround(TailColliderPosition, TailCollider.radius);
+            if (!headOnGrount && !tailOnGrount)
             {
-                tailPoint.PositionWorld = tailPoint.PositionWorld - Vector3.down * gravity * Time.deltaTime;
-            }
-            else
+                var nextPositionHead = headPoint.PositionWorld + Vector3.down * gravity * Time.deltaTime;
+                var nextPositionTail = tailPoint.PositionWorld + Vector3.down * gravity * Time.deltaTime;
+                var correctLength = LengthIsCorrect(nextPositionHead, nextPositionTail, out bool? more);
+                if (correctLength)
+                {                
+                    headPoint.PositionWorld = nextPositionHead;
+                    tailPoint.PositionWorld = nextPositionTail;
+                    return;
+                }
+            } 
+        }
+        
+        if (_inputHead == Vector3.zero)
+        {
+            //print("_inputHead");          
+            var headOnGrount = IsOnGround(HeadColliderPosition, HeadCollider.radius);
+            if (!headOnGrount)
             {
-                headPoint.PositionWorld = headPoint.PositionWorld - Vector3.down * gravity * Time.deltaTime;
+                var nextPosition = headPoint.PositionWorld + Vector3.down * 1 * Time.deltaTime;
+                var correctLength = LengthIsCorrect(tailPoint.PositionWorld, nextPosition, out bool? more);
+                
+                if(correctLength)
+                    headPoint.PositionWorld = nextPosition;
             }
-        }*/
+        }
+
+        if (_inputTail == Vector3.zero)
+        {
+            //print("_inputTail");
+            var tailOnGrount = IsOnGround(TailColliderPosition, TailCollider.radius);
+            if (!tailOnGrount)
+            {
+                var nextPosition = tailPoint.PositionWorld + Vector3.down * 1 * Time.deltaTime;
+                var correctLength = LengthIsCorrect(headPoint.PositionWorld, nextPosition, out bool? more);
+
+                if (correctLength)
+                    tailPoint.PositionWorld = nextPosition;
+            }
+        }
     }
 
     private bool isDead = false;
@@ -733,9 +788,9 @@ public class Worm : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        var headColliderPosition = HeadCollider.transform.position - HeadCollider.center;        
-    }  
+        Gizmos.color = Color.red;       
+        //Gizmos.DrawSphere(HeadColliderPosition, HeadCollider.radius);
+    }
 
     [ContextMenu("UpdateBonesLog")]
     public void UpdateBonesLog()
