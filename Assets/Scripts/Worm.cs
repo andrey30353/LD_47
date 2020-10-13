@@ -162,6 +162,10 @@ public class Worm : MonoBehaviour
 
     private void FixedUpdate()
     {
+        HeadOnGround = IsOnGround(HeadColliderPosition, HeadCollider.radius);
+        MidOnGround = IsOnGround(MidColliderPosition, MidCollider.radius);
+        TailOnGround = IsOnGround(TailColliderPosition, TailCollider.radius);
+
         //UpdatePosition();
 
         //if (InWater)
@@ -349,7 +353,7 @@ public class Worm : MonoBehaviour
         {
             direction.Normalize();
         }
-        //Debug.DrawLine(currentPosition, currentPosition + direction, Color.yellow); 
+        Debug.DrawLine(currentPosition, currentPosition + direction, Color.yellow); 
         if (checkLength)
         {
             // перепроверяем длину
@@ -683,11 +687,8 @@ public class Worm : MonoBehaviour
         if (_inputHead == Vector3.zero && _inputTail == Vector3.zero)
         {
             //if (gravity == MaxGravity)
-            //    gravity = 0;
-
-            var headOnGrount = IsOnGround(HeadColliderPosition, HeadCollider.radius);
-            var tailOnGrount = IsOnGround(TailColliderPosition, TailCollider.radius);
-            if (!headOnGrount && !tailOnGrount)
+            //    gravity = 0;           
+            if (!HeadOnGround && !TailOnGround)
             {
                 var nextPositionHead = headPoint.PositionWorld + Vector3.down * gravity * Time.deltaTime;
                 var nextPositionTail = tailPoint.PositionWorld + Vector3.down * gravity * Time.deltaTime;
@@ -703,31 +704,77 @@ public class Worm : MonoBehaviour
         
         if (_inputHead == Vector3.zero)
         {
-            //print("_inputHead");          
-            var headOnGrount = IsOnGround(HeadColliderPosition, HeadCollider.radius);
-            if (!headOnGrount)
+            //print("_inputHead"); 
+            if (!HeadOnGround)
             {
                 var nextPosition = headPoint.PositionWorld + Vector3.down * 1 * Time.deltaTime;
                 var correctLength = LengthIsCorrect(tailPoint.PositionWorld, nextPosition, out bool? more);
-                
-                if(correctLength)
-                    headPoint.PositionWorld = nextPosition;
+                if (!correctLength)
+                {
+                    var direction = RotateToPoint(tailPoint.PositionWorld, headPoint.PositionWorld, Vector3.down, true);
+                    nextPosition = headPoint.PositionWorld + direction * 1 * Time.deltaTime;                   
+                }
+                headPoint.PositionWorld = nextPosition;
             }
         }
 
         if (_inputTail == Vector3.zero)
         {
-            //print("_inputTail");
-            var tailOnGrount = IsOnGround(TailColliderPosition, TailCollider.radius);
-            if (!tailOnGrount)
+            //print("_inputTail");           
+            if (!TailOnGround)
             {
                 var nextPosition = tailPoint.PositionWorld + Vector3.down * 1 * Time.deltaTime;
                 var correctLength = LengthIsCorrect(headPoint.PositionWorld, nextPosition, out bool? more);
-
-                if (correctLength)
-                    tailPoint.PositionWorld = nextPosition;
+                if (!correctLength)
+                {
+                    var direction = RotateToPoint(headPoint.PositionWorld, tailPoint.PositionWorld, Vector3.down, true);
+                    nextPosition = tailPoint.PositionWorld + direction * 1 * Time.deltaTime;
+                }               
+                tailPoint.PositionWorld = nextPosition;
             }
         }
+    }
+
+    private Vector3 RotateGravityForIncorrectLength(Vector3 otherPartPosition, Vector3 currentPosition, Vector3 input, bool? more)
+    {
+        if (more.Value)
+        {
+            //print(input);
+            // поворачиваем по кругу    
+            // вниз
+            if (input.y < 0 && IsInputTooWeak(input.x))
+            {
+                return RotateToPoint(otherPartPosition, currentPosition, Vector3.down, true);
+            }
+            // направо вниз
+            if (input.x > 0.5f && input.y < -0.5f)
+            {
+                var direction = (Vector3.right + Vector3.down).normalized;
+                return RotateToPoint(otherPartPosition, currentPosition, direction, false);
+            }
+
+            // --- налево
+            if (input.x < 0 && IsInputTooWeak(input.y))
+            {
+                return RotateToPoint(otherPartPosition, currentPosition, Vector3.left, false);
+            }
+
+            // налево вверх
+            if (input.x < -0.5f && input.y > 0.5f)
+            {
+                var direction = (Vector3.left + Vector3.up).normalized;
+                return RotateToPoint(otherPartPosition, currentPosition, direction, false);
+            }
+
+            // налево вниз
+            if (input.x < -0.5f && input.y < -0.5f)
+            {
+                var direction = (Vector3.left + Vector3.down).normalized;
+                return RotateToPoint(otherPartPosition, currentPosition, direction, false);
+            }
+        }
+
+        return Vector3.zero;
     }
 
     private bool isDead = false;
@@ -769,20 +816,29 @@ public class Worm : MonoBehaviour
 
     private void ProcessInput()
     {
+        // можно управлять, только если другая часть на земле      
+
         // голова
-        _inputHead = Vector3.zero;
-        var horizontal = Input.GetAxis("Horizontal");
-        var vertical = Input.GetAxis("Vertical");
-        _inputHead = new Vector3(horizontal, vertical, 0).normalized;
+        _inputHead = Vector3.zero;       
+        if (TailOnGround)
+        {
+            var horizontal = Input.GetAxis("Horizontal");
+            var vertical = Input.GetAxis("Vertical");
+            _inputHead = new Vector3(horizontal, vertical, 0).normalized;
+        }      
+      
 
         //  хвост
         _inputTail = Vector3.zero;
         //print(_inputHead);
         if (_inputHead == Vector3.zero)
         {
-            var horizontal1 = Input.GetAxis("Horizontal1");
-            var vertical1 = Input.GetAxis("Vertical1");
-            _inputTail = new Vector3(horizontal1, vertical1, 0).normalized;
+            if (HeadOnGround)
+            {
+                var horizontal1 = Input.GetAxis("Horizontal1");
+                var vertical1 = Input.GetAxis("Vertical1");
+                _inputTail = new Vector3(horizontal1, vertical1, 0).normalized;
+            }
         }
     }
 
