@@ -185,14 +185,11 @@ public class Worm : MonoBehaviour
             var nextHeadPosition = headPoint.PositionWorld + correctedInputHead * Speed * Time.deltaTime;
 
             var midPointNextPosition = CalcMidPointPosition(nextHeadPosition, tailPoint.PositionWorld);
-
-            bool midPointCollision = IsMidPointCollide(midPoint.PositionWorld, MidCollider.radius);
-            if (midPointCollision)
+            bool midPointCollision = IsMidPointCollide(midPointNextPosition, MidCollider.radius);
+            if (!midPointCollision)
             {
-                print("midPointCollision");
-            }
-
-            headPoint.PositionWorld = nextHeadPosition;
+                headPoint.PositionWorld = nextHeadPosition;
+            }           
         }
 
         if (_inputTail != Vector3.zero)
@@ -204,7 +201,13 @@ public class Worm : MonoBehaviour
             correctedInputTail = CorrectInputByFormTail(correctedInputTail);
 
             var nextTailPosition = tailPoint.PositionWorld + correctedInputTail * Speed * Time.deltaTime;
-            tailPoint.PositionWorld = nextTailPosition;
+
+            var midPointNextPosition = CalcMidPointPosition(headPoint.PositionWorld, nextTailPosition);
+            bool midPointCollision = IsMidPointCollide(midPointNextPosition, MidCollider.radius);
+            if (!midPointCollision)
+            {
+                tailPoint.PositionWorld = nextTailPosition;
+            }          
         }
     }    
 
