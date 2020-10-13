@@ -112,4 +112,24 @@ public class TimeBar : MonoBehaviour
             CurrentWorm = Instantiate(WormPrefab, SpawnPoint);
 		}
 	}
+
+
+	public void ButtonDead() 
+	{
+		if (postProcessControl != null) 
+		{
+			postProcessControl.flash = true;
+			postProcessControl.flashBig = true;
+			isBeeped = false;
+		}
+
+		current = maxValue;
+
+		CurrentWorm.Dead();
+
+		CurrentWorm = Instantiate(WormPrefab, SpawnPoint);
+
+	}
+
+
 }
