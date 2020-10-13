@@ -10,21 +10,6 @@ public class UI : MonoBehaviour
     public void Start()
     {
         Time.timeScale = 1f;
-
-        if (SceneManager.GetActiveScene().buildIndex == 1)
-        {
-            PlayerPrefs.SetInt("ContinueLevel", 1);
-        }
-
-        if (SceneManager.GetActiveScene().buildIndex == 2)
-        {
-            PlayerPrefs.SetInt("ContinueLevel", 2);
-        }
-
-        if (SceneManager.GetActiveScene().buildIndex == 3)
-        {
-            PlayerPrefs.SetInt("ContinueLevel", 3);
-        }
     }
     
     public void Exit()
@@ -70,6 +55,22 @@ public class UI : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+
+    public void OpenLevel1() 
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void OpenLevel2()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void OpenLevel3()
+    {
+        SceneManager.LoadScene(1);
     }
 
 
