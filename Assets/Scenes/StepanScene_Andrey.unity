@@ -670,7 +670,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 306739406}
   m_LocalRotation: {x: -0, y: -0, z: -0.033390794, w: 0.9994424}
-  m_LocalPosition: {x: 0.74300003, y: 4.3190002, z: -2.56}
+  m_LocalPosition: {x: 1.22, y: 2.29, z: -2.56}
   m_LocalScale: {x: 1.1569138, y: 1.1569138, z: 1.1569138}
   m_Children: []
   m_Father: {fileID: 1520714027}
@@ -1046,6 +1046,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 338135954}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!135 &367584003 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 3774537644255807277, guid: 568e5e9a2fe165f49b3a2065263d07b3, type: 3}
+  m_PrefabInstance: {fileID: 7233924854272262037}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &381885976
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1612,7 +1617,7 @@ GameObject:
   - component: {fileID: 652963132}
   - component: {fileID: 652963131}
   - component: {fileID: 652963130}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1628,7 +1633,7 @@ BoxCollider:
   m_GameObject: {fileID: 652963129}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -2256,7 +2261,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 990383365}
   m_LocalRotation: {x: -0, y: -0, z: 0.0012420007, w: 0.9999992}
-  m_LocalPosition: {x: 2.25, y: -1.21, z: -2.56}
+  m_LocalPosition: {x: 2.2469997, y: -1.849, z: -2.56}
   m_LocalScale: {x: 1.1569138, y: 1.1569138, z: 1.1569138}
   m_Children: []
   m_Father: {fileID: 1520714027}
@@ -4066,7 +4071,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1959681578}
   m_LocalRotation: {x: -0, y: -0, z: -0.033390794, w: 0.9994424}
-  m_LocalPosition: {x: 0.74300003, y: -1.161, z: -2.56}
+  m_LocalPosition: {x: 0.74, y: -1.8, z: -2.56}
   m_LocalScale: {x: 1.1569138, y: 1.1569138, z: 1.1569138}
   m_Children: []
   m_Father: {fileID: 1520714027}
@@ -4572,16 +4577,6 @@ SphereCollider:
   m_CorrespondingSourceObject: {fileID: 3774537644255807279, guid: 568e5e9a2fe165f49b3a2065263d07b3, type: 3}
   m_PrefabInstance: {fileID: 1856422203}
   m_PrefabAsset: {fileID: 0}
---- !u!135 &5766236650366662839 stripped
-SphereCollider:
-  m_CorrespondingSourceObject: {fileID: 3774537644255807266, guid: 568e5e9a2fe165f49b3a2065263d07b3, type: 3}
-  m_PrefabInstance: {fileID: 7233924854272262037}
-  m_PrefabAsset: {fileID: 0}
---- !u!135 &5766236650366662842 stripped
-SphereCollider:
-  m_CorrespondingSourceObject: {fileID: 3774537644255807279, guid: 568e5e9a2fe165f49b3a2065263d07b3, type: 3}
-  m_PrefabInstance: {fileID: 7233924854272262037}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7233924854272262037
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4592,10 +4587,6 @@ PrefabInstance:
     - target: {fileID: 3774537644255807192, guid: 568e5e9a2fe165f49b3a2065263d07b3, type: 3}
       propertyPath: m_Name
       value: Worm
-      objectReference: {fileID: 0}
-    - target: {fileID: 3774537644255807192, guid: 568e5e9a2fe165f49b3a2065263d07b3, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3774537644255807284, guid: 568e5e9a2fe165f49b3a2065263d07b3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4642,12 +4633,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5766236650366662990, guid: 568e5e9a2fe165f49b3a2065263d07b3, type: 3}
-      propertyPath: HeadCollider
+      propertyPath: MidCollider
       value: 
-      objectReference: {fileID: 5766236650366662839}
-    - target: {fileID: 5766236650366662990, guid: 568e5e9a2fe165f49b3a2065263d07b3, type: 3}
-      propertyPath: TailCollider
-      value: 
-      objectReference: {fileID: 5766236650366662842}
+      objectReference: {fileID: 367584003}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 568e5e9a2fe165f49b3a2065263d07b3, type: 3}

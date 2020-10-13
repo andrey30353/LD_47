@@ -107,8 +107,9 @@ MonoBehaviour:
   Speed: 2
   Length: 2
   MaxGravity: 5
-  HeadCollider: {fileID: 0}
-  TailCollider: {fileID: 0}
+  HeadCollider: {fileID: 3774537644255807266}
+  MidCollider: {fileID: 0}
+  TailCollider: {fileID: 3774537644255807279}
   ModelContent: {fileID: 0}
   mesh: {fileID: 7133220229872898158}
   _parts:
@@ -140,6 +141,15 @@ MonoBehaviour:
   TailIsCollided: 0
   TailCollidedWith: {fileID: 0}
   soundEffector: {fileID: 0}
+  CurrentDistance_test: 0
+  CurrentDistanceX_test: 0
+  CurrentDistanceY_test: 0
+  DistanceRelation: 0
+  rotationAngle: 0
+  tanRotationAngle: 0
+  rel2: {x: 0, y: 0, z: 0}
+  rel: 0
+  rot: {x: 0, y: 0, z: 0}
 --- !u!1 &3774537644255807193
 GameObject:
   m_ObjectHideFlags: 0
