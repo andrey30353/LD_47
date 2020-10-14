@@ -53,6 +53,6 @@ public class Game : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(SpawnPoint.position, SpawnPoint.position + Vector3.right * 10);
+        Gizmos.DrawLine(SpawnPoint.position, SpawnPoint.position + Vector3.right * 20);
     }
 }
