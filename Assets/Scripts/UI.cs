@@ -63,7 +63,12 @@ public class UI : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    public void LoadLevel(int index)
+    {
+        SceneManager.LoadScene(index);
+    }
 
+    // todo del
     public void OpenLevel1() 
     {
         SceneManager.LoadScene(1);
@@ -71,12 +76,12 @@ public class UI : MonoBehaviour
 
     public void OpenLevel2()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     public void OpenLevel3()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(3);
     }
 
 

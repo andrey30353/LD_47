@@ -5085,7 +5085,7 @@ PrefabInstance:
       objectReference: {fileID: 45045829}
     - target: {fileID: 7252306013484230009, guid: c72911e28f7b26d43ad4655e52cc20bd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenLevel2
+      value: LoadLevel
       objectReference: {fileID: 0}
     - target: {fileID: 7252306013484230009, guid: c72911e28f7b26d43ad4655e52cc20bd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -5093,7 +5093,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7252306013484230009, guid: c72911e28f7b26d43ad4655e52cc20bd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7252306013484230009, guid: c72911e28f7b26d43ad4655e52cc20bd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -5119,6 +5119,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 8300000, guid: b52b8193d3f260b48b10e9438e0cb7f8, type: 3}
+    - target: {fileID: 7252306013484230009, guid: c72911e28f7b26d43ad4655e52cc20bd, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7252306013510817530, guid: c72911e28f7b26d43ad4655e52cc20bd, type: 3}
       propertyPath: m_Name
       value: WinImage
