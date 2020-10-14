@@ -10,6 +10,12 @@ public class UI : MonoBehaviour
     public void Start()
     {
         Time.timeScale = 1f;
+
+
+        if (!PlayerPrefs.HasKey("LvlsPassed")) 
+        {
+            PlayerPrefs.SetInt("LvlsPassed", 0);
+        }
     }
     
     public void Exit()

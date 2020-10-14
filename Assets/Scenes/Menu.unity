@@ -1784,6 +1784,7 @@ GameObject:
   m_Component:
   - component: {fileID: 390802462}
   - component: {fileID: 390802461}
+  - component: {fileID: 390802463}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -1817,6 +1818,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &390802463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 390802460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77993e0671e045d4b9b4d8859cb51097, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttons:
+  - {fileID: 459386104}
+  - {fileID: 321894254}
+  - {fileID: 1123674011}
+  - {fileID: 427166400}
+  - {fileID: 837093918}
+  - {fileID: 868855236}
+  - {fileID: 263699600}
+  - {fileID: 323848118}
+  - {fileID: 1659859928}
+  - {fileID: 1524891398}
+  - {fileID: 878422577}
+  - {fileID: 1825118696}
+  - {fileID: 473644742}
+  - {fileID: 380555852}
+  - {fileID: 959946906}
 --- !u!1 &400546560
 GameObject:
   m_ObjectHideFlags: 0

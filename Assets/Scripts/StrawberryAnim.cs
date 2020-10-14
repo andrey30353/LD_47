@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StrawberryAnim : MonoBehaviour
 {
@@ -75,6 +76,20 @@ public class StrawberryAnim : MonoBehaviour
 
                 Game.Instance.Pause.gameObject.SetActive(false);
                 Game.Instance.WinScreen.gameObject.SetActive(true);
+
+                if (PlayerPrefs.HasKey("LvlsPassed")) 
+                {
+                    if (SceneManager.GetActiveScene().buildIndex > PlayerPrefs.GetInt("LvlsPassed"))
+                    {
+                        PlayerPrefs.SetInt("LvlsPassed", SceneManager.GetActiveScene().buildIndex);
+                    }
+                }
+                else 
+                {
+                    PlayerPrefs.SetInt("LvlsPassed", SceneManager.GetActiveScene().buildIndex);
+                }
+
+               
             }
 
             enabled = false;
