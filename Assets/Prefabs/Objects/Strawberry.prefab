@@ -60,6 +60,7 @@ MonoBehaviour:
   - {fileID: 914352552274623644}
   EatTime: 1.5
   IsEaten: 0
+  soundEffector: {fileID: 0}
 --- !u!54 &7029150054160658181
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -88,7 +89,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.45
-  m_Center: {x: -0.12, y: -0.032390222, z: 0.5001215}
+  m_Center: {x: 0, y: 0, z: 0.5001215}
 --- !u!1001 &31814491922612685
 PrefabInstance:
   m_ObjectHideFlags: 0

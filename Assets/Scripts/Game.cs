@@ -1,15 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
-    public Snake WormPrefab;
+    public Worm WormPrefab;
 
     public Transform SpawnPoint;
 
-    public Snake CurrentWorm;
+    public Worm CurrentWorm;
 
     public static Game Instance;
 
@@ -18,34 +19,40 @@ public class Game : MonoBehaviour
 
     public Button Pause;
     public Image WinScreen;
-
- 
-
-
-    public void Awake()
+    private void Awake()
     {
         Instance = this;
     }
 
-   
-
-    
-    void Update()
+    private void Start()
     {
-        
-        //if (Input.GetKeyDown(KeyCode.F))
-        //{
-        //    CurrentWorm.Dead();
+        CurrentWorm = Instantiate(WormPrefab, SpawnPoint);
+    }
 
-        //    CurrentWorm = Instantiate(WormPrefab, SpawnPoint);
-        //}
+    void Update()
+    {        
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            WormDead();
+        }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
             var currentScene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(currentScene.buildIndex);
-        }
-        
-    } 
+        }        
+    }
 
+    public void WormDead()
+    {
+        CurrentWorm.Dead();
+
+        CurrentWorm = Instantiate(WormPrefab, SpawnPoint);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(SpawnPoint.position, SpawnPoint.position + Vector3.right * 10);
+    }
 }

@@ -15,13 +15,6 @@ public class TimeBar : MonoBehaviour
 
     public float timeAmount = 15f;
 	
-
-	public Snake WormPrefab;
-
-    public Transform SpawnPoint;
-
-    public Snake CurrentWorm;
-
 	public GameObject comic;
 
 	public bool IsActive => comic.activeSelf == false;
@@ -89,10 +82,7 @@ public class TimeBar : MonoBehaviour
 
 		CheckDead();
 	}
-
-
 	
-
 
 	public void CheckDead()
 	{
@@ -107,9 +97,7 @@ public class TimeBar : MonoBehaviour
 
 			current = maxValue;
 
-			CurrentWorm.Dead();
-
-            CurrentWorm = Instantiate(WormPrefab, SpawnPoint);
+			Game.Instance.WormDead();			
 		}
 	}
 
@@ -125,11 +113,6 @@ public class TimeBar : MonoBehaviour
 
 		current = maxValue;
 
-		CurrentWorm.Dead();
-
-		CurrentWorm = Instantiate(WormPrefab, SpawnPoint);
-
+		Game.Instance.WormDead();
 	}
-
-
 }

@@ -791,25 +791,22 @@ public class Worm : MonoBehaviour
 
         foreach (var item in _parts)
         {
-            /*var collider = item.GetComponent<SphereCollider>();
+            var collider = item.GetComponent<Collider>();
             if(collider != null)
             {
                 collider.isTrigger = true;
-                item.gameObject.AddComponent<CantMove>();
-            }   
-            }*/
+                collider.enabled = true;
 
-            item.gameObject.layer = 0;
+                item.gameObject.layer = LayerMask.NameToLayer("Obstacle");
+            }
 
             var rb = item.GetComponent<Rigidbody>();
             if (rb != null)
-            {
-                rb.isKinematic = true;
+            {                
                 Destroy(rb);
             }
         }
         this.enabled = false;
-
     }
 
     float _inputHeadX, _inputHeadY, _inputTailX, _inputTailY;

@@ -82,7 +82,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3774537644255807192}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.48, y: -2.53, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3774537644255807178}
@@ -108,7 +108,7 @@ MonoBehaviour:
   Length: 2
   MaxGravity: 5
   HeadCollider: {fileID: 3774537644255807266}
-  MidCollider: {fileID: 0}
+  MidCollider: {fileID: 3774537644255807277}
   TailCollider: {fileID: 3774537644255807279}
   ModelContent: {fileID: 0}
   mesh: {fileID: 7133220229872898158}
@@ -140,6 +140,9 @@ MonoBehaviour:
   MidIsCollided: 0
   TailIsCollided: 0
   TailCollidedWith: {fileID: 0}
+  HeadOnGround: 0
+  MidOnGround: 0
+  TailOnGround: 0
   soundEffector: {fileID: 0}
   CurrentDistance_test: 0
   CurrentDistanceX_test: 0
@@ -392,7 +395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worm: {fileID: 5766236650366662990}
-  Type: 0
+  Type: 2
   _otherCollider: {fileID: 0}
 --- !u!65 &3774537644255807264
 BoxCollider:
